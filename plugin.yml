@@ -1,0 +1,21 @@
+name: FarmInventory
+main: com.ranmc.farm.inventory.Main
+description: RanWhite forever
+author: RanWhite
+version: Beta 1.3
+api-version: 1.18
+softdepend: [PlaceholderAPI]
+
+permissions: 
+  fm.user:
+    default: true
+    description: 'user only'
+
+  fm.admin:
+    default: op
+    description: 'admin only'
+
+commands:
+  fm:
+    description: fm
+    usage: /<command>
