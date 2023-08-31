@@ -1,12 +1,11 @@
-package com.ranmc.farm.inventory;
+package cc.ranmc.farm.inventory;
 
 import org.bukkit.OfflinePlayer;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
+import org.jetbrains.annotations.NotNull;
 
 public class Papi extends PlaceholderExpansion {
-	
-	public String word,author,realtime,realdate;
     
 	private final Main plugin;
 
@@ -20,24 +19,24 @@ public class Papi extends PlaceholderExpansion {
     }
 
     @Override
-    public String getAuthor(){
-        return "RanWhite";
+    public @NotNull String getAuthor(){
+        return "Ranica";
     }
 
     @Override
-    public String getIdentifier(){
+    public @NotNull String getIdentifier(){
         return "fm";
     }
 
     @Override
-    public String getVersion(){
+    public @NotNull String getVersion(){
         return "Beta";
     }
   
     @Override
-    public String onRequest(OfflinePlayer player, String identifier){
+    public String onRequest(OfflinePlayer player, @NotNull String identifier){
     	
-        if(!player.isOnline()) return "&c目标错误";
+        if (!player.isOnline()) return "&c目标错误";
         return plugin.getConfig().getString(player.getName()+"#"+identifier,"0");
     }
 }

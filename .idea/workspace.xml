@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7474bad1-44d6-4a94-ab2b-1549b9902f99" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="24MeLfYrgSj4fpzZDrUbWn4mutz" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/IDE/FarmInventory&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.30229884&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7474bad1-44d6-4a94-ab2b-1549b9902f99" name="Changes" comment="" />
+      <created>1643444829239</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1643444829239</updated>
+      <workItem from="1643444830529" duration="8000" />
+      <workItem from="1644357980734" duration="1174000" />
+      <workItem from="1644360893036" duration="38000" />
+      <workItem from="1645356296705" duration="3000" />
+      <workItem from="1666953459964" duration="142000" />
+      <workItem from="1685951303089" duration="355000" />
+      <workItem from="1685951670024" duration="263000" />
+      <workItem from="1685953114409" duration="593000" />
+      <workItem from="1685956407987" duration="6000" />
+      <workItem from="1693397219034" duration="1422000" />
+      <workItem from="1693407986991" duration="6000" />
+      <workItem from="1693463271076" duration="523000" />
+      <workItem from="1693463804402" duration="736000" />
+      <workItem from="1693464562277" duration="1098000" />
+      <workItem from="1693465743192" duration="245000" />
+      <workItem from="1693466020564" duration="39000" />
+      <workItem from="1693466082265" duration="128000" />
+      <workItem from="1693466230721" duration="26000" />
+      <workItem from="1693466269853" duration="910000" />
+      <workItem from="1693467203336" duration="67000" />
+      <workItem from="1693467280211" duration="5200000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
