@@ -195,7 +195,7 @@ public class Main extends JavaPlugin implements Listener{
 			}
 			if (event.getRawSlot() == 45) {
 				save(player, inventory);
-				player.chat("/cd");
+				player.chat("/farm");
 				return;
 			}
 			if (event.getRawSlot() == 47) {
@@ -284,7 +284,6 @@ public class Main extends JavaPlugin implements Listener{
 	@EventHandler
 	public void onBlockDropItemEvent(BlockDropItemEvent event) {
 		Player player = event.getPlayer();
-		print(player.getName());
 		if (!getConfig().getBoolean(player.getName()+"#OPEN",true)) return;
 		boolean isCrop = true;
 		List<Item> items = event.getItems();
