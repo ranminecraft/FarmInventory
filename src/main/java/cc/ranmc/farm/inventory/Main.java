@@ -171,7 +171,8 @@ public class Main extends JavaPlugin implements Listener{
 		Player player = (Player) event.getWhoClicked();
 		ItemStack clicked = event.getCurrentItem();
 		if (event.getView().getTitle().equals(color("&d&l桃花源丨作物仓库"))) {
-			Inventory inventory = Objects.requireNonNull(event.getClickedInventory());
+			Inventory inventory = event.getClickedInventory();
+			if (inventory == null) return;
 			if (event.getRawSlot() >= 45 && inventory != player.getInventory()) event.setCancelled(true);
 			if (clicked == null && inventory == player.getInventory()) return;
 
@@ -180,6 +181,7 @@ public class Main extends JavaPlugin implements Listener{
 				return;
 			}
 			if (event.getRawSlot() == 45) {
+				save(player, inventory);
 				player.chat("/cd");
 				return;
 			}
