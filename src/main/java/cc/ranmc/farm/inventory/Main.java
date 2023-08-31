@@ -2,6 +2,7 @@ package cc.ranmc.farm.inventory;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -28,8 +29,16 @@ import static cc.ranmc.farm.inventory.Util.print;
 
 public class Main extends JavaPlugin implements Listener{
 	
-	// 农作物列表
-	private List<String> CropList = new ArrayList<>();
+	// 收集掉落物的农作物列表
+	private static final List<Material> CROP_TYPE = Arrays.asList(
+			Material.POTATO,
+			Material.CARROT,
+			Material.WHEAT,
+			Material.WHEAT_SEEDS,
+			Material.BEETROOT,
+			Material.BEETROOT_SEEDS,
+			Material.NETHER_WART,
+			Material.PUMPKIN);
 	// PAPI变量
 	public Papi papi;
 	// 板
@@ -134,6 +143,10 @@ public class Main extends JavaPlugin implements Listener{
 		Inventory inventory = Bukkit.createInventory(null, 54, color("&d&l桃花源丨作物仓库"));
 
 		Cop cop = new Cop(crop);
+		if (cop.getMaterial() == Material.AIR) {
+			player.sendMessage(color("&b桃花源>>>&c没有找到这个农作物"));
+			return;
+		}
 
 		inventory.setItem(45, getItem(Material.RED_STAINED_GLASS_PANE, 1, "&c返回菜单"));
 		inventory.setItem(46, PANE);
@@ -209,11 +222,10 @@ public class Main extends JavaPlugin implements Listener{
 	 */
 	@Override
 	public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, String alias, String[] args) {
-		List<String> cmdls = new ArrayList<>();
 		if (alias.equalsIgnoreCase("fm") && args.length == 1 && sender.hasPermission("fm.user")) {
-			cmdls = CropList;
+			return List.of("switch");
 		}
-		return cmdls;
+		return new ArrayList<>();
 	}
 	
 	/**
@@ -272,13 +284,14 @@ public class Main extends JavaPlugin implements Listener{
 	@EventHandler
 	public void onBlockDropItemEvent(BlockDropItemEvent event) {
 		Player player = event.getPlayer();
+		print(player.getName());
 		if (!getConfig().getBoolean(player.getName()+"#OPEN",true)) return;
 		boolean isCrop = true;
 		List<Item> items = event.getItems();
 		if (items.isEmpty()) return;
-        for (Item element : items) {
-            ItemStack item = element.getItemStack();
-            if (!CropList.contains(item.getType().toString())) {
+        for (Item value : items) {
+            ItemStack item = value.getItemStack();
+            if (!CROP_TYPE.contains(item.getType())) {
                 isCrop = false;
             }
         }
@@ -293,7 +306,7 @@ public class Main extends JavaPlugin implements Listener{
 				Bukkit.getGlobalRegionScheduler().runDelayed(this, task -> {
 					player.sendMessage(color("&b桃花源>>>&a全部作物已存放仓库,打开菜单查看吧"));
 					noteList.remove(player.getName());
-				}, 300);
+				}, 200);
 			}
 			noteList.add(player.getName());
 			event.setCancelled(true);
@@ -308,8 +321,6 @@ public class Main extends JavaPlugin implements Listener{
         	saveDefaultConfig();
         }
         reloadConfig();
-        
-        CropList = getConfig().getStringList("CropList");
         
         // 检测PAPI
         if( Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){

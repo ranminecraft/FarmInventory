@@ -75,7 +75,7 @@ public class Util {
     public static ItemStack getItem(Material material, int count, String name, String... lore) {
         ItemStack item = new ItemStack(material,count);
         ItemMeta meta = item.getItemMeta();
-        Objects.requireNonNull(meta).setDisplayName(color(name));
+        meta.setDisplayName(color(name));
         for (int i = 0; i < lore.length; i++) {
             lore[i] = color(lore[i]);
         }
