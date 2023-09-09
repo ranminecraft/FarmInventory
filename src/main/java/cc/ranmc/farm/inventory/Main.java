@@ -42,7 +42,7 @@ public class Main extends JavaPlugin implements Listener{
 	// 板
 	private static final ItemStack PANE = getItem(Material.GRAY_STAINED_GLASS_PANE, 1, " ");
 	// 提示
-	private List<String> noteList = new ArrayList<>();
+	private final List<String> noteList = new ArrayList<>();
 	
 	/**
 	 * 插件启动
@@ -196,12 +196,13 @@ public class Main extends JavaPlugin implements Listener{
 				player.chat("/farm");
 				return;
 			}
+			String copType = inventory.getItem(49).getType().toString();
 			if (event.getRawSlot() == 47) {
 				int page = Integer.parseInt(clicked.getItemMeta().getDisplayName().split(" ")[1]);
 				if (event.getClick().isLeftClick()) page--;
 				if (event.getClick().isRightClick()) page -= 10;
 				save(player, inventory);
-				openCropGUI(player, inventory.getItem(49).getType().toString(), page);
+				openCropGUI(player, copType, page);
 				return;
 			}
 			if (event.getRawSlot() == 51) {
@@ -209,7 +210,7 @@ public class Main extends JavaPlugin implements Listener{
 				if (event.getClick().isLeftClick()) page++;
 				if (event.getClick().isRightClick()) page += 10;
 				save(player, inventory);
-				openCropGUI(player, inventory.getItem(49).getType().toString(), page);
+				openCropGUI(player, copType, page);
 			}
 		}
 		
@@ -241,7 +242,10 @@ public class Main extends JavaPlugin implements Listener{
 	}
 
 	public void save(Player player, Inventory inventory) {
-		Cop cop = new Cop(inventory.getItem(49).getType().toString());
+		ItemStack copItem = inventory.getItem(49);
+		if (copItem == null) return;
+		Cop cop = new Cop(copItem.getType().toString());
+		if (cop.getMaterial() == Material.AIR) return;
 		int page = Integer.parseInt(inventory.getItem(47).getItemMeta().getDisplayName().split(" ")[1]);
 		int totalItems = getConfig().getInt(player.getName() + "#" + cop.getMaterial().toString());
 		int itemsPerPage = 45;
@@ -251,28 +255,26 @@ public class Main extends JavaPlugin implements Listener{
 		if (endIndex > totalItems) endIndex = totalItems;
 		int pageCount = endIndex - startIndex;
 		if (pageCount < 0) pageCount = 0;
-
-		if (cop.getMaterial() != Material.AIR) {
-			int count = 0;
-			for (int i = 0; i < 45; i++) {
-				ItemStack item = inventory.getItem(i);
-				if (item != null) {
-					if (item.getType() == cop.getMaterial()) {
-						count += inventory.getItem(i).getAmount();
-					} else {
-						inventory.setItem(i, new ItemStack(Material.AIR));
-						player.getInventory().addItem(item);
-					}
+		int count = 0;
+		for (int i = 0; i < 45; i++) {
+			ItemStack item = inventory.getItem(i);
+			if (item != null) {
+				if (item.getType() == cop.getMaterial()) {
+					count += inventory.getItem(i).getAmount();
+				} else {
+					inventory.setItem(i, new ItemStack(Material.AIR));
+					player.getInventory().addItem(item);
 				}
 			}
-			if (count > pageCount) {
-				totalItems += count - pageCount;
-			} else if (count < pageCount) {
-				totalItems -= pageCount - count;
-			}
-			this.getConfig().set(player.getName() + "#" + cop.getMaterial().toString(), totalItems);
-			saveConfig();
 		}
+		if (count > pageCount) {
+			totalItems += count - pageCount;
+		} else if (count < pageCount) {
+			totalItems -= pageCount - count;
+		}
+		this.getConfig().set(player.getName() + "#" + cop.getMaterial().toString(), totalItems);
+		saveConfig();
+		inventory.setItem(49, new ItemStack(Material.AIR));
 	}
 	
 	/**
@@ -299,12 +301,12 @@ public class Main extends JavaPlugin implements Listener{
                 getConfig().set(info, this.getConfig().getInt(info) + item.getAmount());
             }
 			saveConfig();
-			if (!noteList.contains(player.getName())) {
-				Bukkit.getGlobalRegionScheduler().runDelayed(this, task -> {
+			Bukkit.getGlobalRegionScheduler().runDelayed(this, task -> {
+				noteList.remove(player.getName());
+				if (!noteList.contains(player.getName())) {
 					player.sendMessage(color("&b桃花源>>>&a全部作物已存放仓库,打开菜单查看吧"));
-					noteList.remove(player.getName());
-				}, 200);
-			}
+				}
+			}, 100);
 			noteList.add(player.getName());
 			event.setCancelled(true);
 		}
