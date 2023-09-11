@@ -196,7 +196,9 @@ public class Main extends JavaPlugin implements Listener{
 				player.chat("/farm");
 				return;
 			}
-			String copType = inventory.getItem(49).getType().toString();
+			ItemStack item = inventory.getItem(49);
+			if (item == null || item.getType() == Material.AIR) return;
+			String copType = item.getType().toString();
 			if (event.getRawSlot() == 47) {
 				int page = Integer.parseInt(clicked.getItemMeta().getDisplayName().split(" ")[1]);
 				if (event.getClick().isLeftClick()) page--;
