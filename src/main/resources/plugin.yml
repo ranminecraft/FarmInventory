@@ -1,7 +1,7 @@
 name: FarmInventory
 main: cc.ranmc.farm.inventory.Main
 website: https://www.ranmc.cc/
-description: '阿然定制24k纯钛合金超级无敌终终终终极版桃花源专属作物菜单插件'
+description: '桃花源定制24k纯钛合金超级无敌终终终终极版桃花源专属作物菜单插件'
 author: Ranica
 version: Beta 2.1
 api-version: "1.20"
