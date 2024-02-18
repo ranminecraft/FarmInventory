@@ -243,24 +243,6 @@ public class Main extends JavaPlugin implements Listener{
 		save(player, inventory);
 	}
 
-	/**
-	 * 玩家背包是否已满
-	 * @param player 玩家
-	 * @return 是否已满
-	 */
-	public boolean isInventoryFull(Player player) {
-		return isInventoryFull(player.getInventory());
-	}
-
-	public boolean isInventoryFull(Inventory inventory) {
-		for (int i = 0; i < 36; i++) {
-			if (inventory.getItem(i) == null) {
-				return false;
-			}
-		}
-		return true;
-	}
-
 	public void save(Player player, Inventory inventory) {
 		ItemStack copItem = inventory.getItem(49);
 		if (copItem == null) return;
@@ -283,13 +265,8 @@ public class Main extends JavaPlugin implements Listener{
 					count += inventory.getItem(i).getAmount();
 				} else {
 					inventory.setItem(i, new ItemStack(Material.AIR));
-					if (isInventoryFull(player)) {
-						player.getInventory().addItem(item);
-						player.sendMessage(color("&b桃花源>>>&c请勿放入非作物,已返还至背包"));
-					} else {
-						player.getWorld().dropItem(player.getLocation(), item);
-						player.sendMessage(color("&b桃花源>>>&c请勿放入非作物,已掉落地面"));
-					}
+					player.getWorld().dropItem(player.getLocation(), item);
+					player.sendMessage(color("&b桃花源>>>&c请勿放入非作物,已掉落地面"));
 				}
 			}
 		}
