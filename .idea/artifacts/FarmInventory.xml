@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" build-on-make="true" name="FarmInventory">
-    <output-path>$PROJECT_DIR$/../testserver/plugins</output-path>
+    <output-path>$USER_HOME$/Desktop/Paper/plugins</output-path>
     <root id="archive" name="FarmInventory.jar">
       <element id="module-output" name="Ran" />
     </root>

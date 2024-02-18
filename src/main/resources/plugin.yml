@@ -3,7 +3,7 @@ main: cc.ranmc.farm.inventory.Main
 website: https://www.ranmc.cc/
 description: '桃花源定制24k纯钛合金超级无敌终终终终极版专属作物菜单插件'
 author: Ranica
-version: Release 2.2
+version: Release 2.3
 api-version: "1.20"
 softdepend: [PlaceholderAPI]
 folia-supported: true
