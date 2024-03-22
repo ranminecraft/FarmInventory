@@ -89,12 +89,11 @@ public class Main extends JavaPlugin implements Listener{
 				if (sender.hasPermission("fm.admin")) {
 					LoadConfig();
 					p.sendMessage(color("&b[FM] &a重载完成"));
-					return true;
-				} else {
+                } else {
 					p.sendMessage(color("&b[FM] &c你没有权限这样做"));
-					return true;
-				}
-			}
+                }
+                return true;
+            }
 			
 			if(args[0].equalsIgnoreCase("switch")) {
 				if (sender.hasPermission("fm.user")) {
@@ -115,12 +114,11 @@ public class Main extends JavaPlugin implements Listener{
 			
 			if (sender.hasPermission("fm.user")) {
 				openCropGUI(p, args[0].toUpperCase(), 1);
-				return true;
-			} else {
+            } else {
 				sender.sendMessage("§c你没有权限这么做");
-				return true;
-			}
-		}
+            }
+            return true;
+        }
 		
 		sender.sendMessage("§c未知指令");
 		return true;
