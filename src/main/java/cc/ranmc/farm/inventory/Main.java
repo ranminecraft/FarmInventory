@@ -149,7 +149,7 @@ public class Main extends JavaPlugin implements Listener{
 		inventory.setItem(48, PANE);
 		inventory.setItem(49, getItem(cop.getMaterial(), 1,
 				"&b" + cop.getName(),
-				"&e仓库库存: " + count, "&e不要放其他东西哦", "&e否则丢了后果自负"));
+				"&e仓库库存: " + count, "&e请勿放入其他东西", "&e造成丢失后果自负"));
 		inventory.setItem(50, PANE);
 		inventory.setItem(51, getItem(Material.PAPER, 1,
 				"&b当前页数 " + page, "&e左键切换下页", "&e右键快速翻页"));
