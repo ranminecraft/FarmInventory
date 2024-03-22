@@ -29,6 +29,7 @@ public class Main extends JavaPlugin implements Listener{
 	
 	// 收集掉落物的农作物列表
 	private static final List<Material> CROP_TYPE = Arrays.asList(
+			Material.CACTUS,
 			Material.POTATO,
 			Material.CARROT,
 			Material.WHEAT,
@@ -314,7 +315,7 @@ public class Main extends JavaPlugin implements Listener{
 			Bukkit.getGlobalRegionScheduler().runDelayed(this, task -> {
 				noteList.remove(player.getName());
 				if (!noteList.contains(player.getName())) {
-					player.sendMessage(color("&b桃花源>>>&a全部作物已存放仓库,打开菜单查看吧"));
+					player.sendMessage(color("&b桃花源>>>&a作物已存放仓库,打开菜单查看吧"));
 				}
 			}, 100);
 			noteList.add(player.getName());
