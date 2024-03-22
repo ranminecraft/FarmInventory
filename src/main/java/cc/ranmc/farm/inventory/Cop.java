@@ -54,6 +54,10 @@ public class Cop {
                 material = Material.BAMBOO;
                 name = "竹子";
             }
+            case "CACTUS" -> {
+                material = Material.CACTUS;
+                name = "仙人掌";
+            }
             default -> {
                 material = Material.AIR;
                 name = "未知";

@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7474bad1-44d6-4a94-ab2b-1549b9902f99" name="Changes" comment="放入非作物时检测背包是否已满掉落地面并提醒玩家">
-      <change beforePath="$PROJECT_DIR$/target/classes/cc/ranmc/farm/inventory/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cc/ranmc/farm/inventory/Cop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cc/ranmc/farm/inventory/Cop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cc/ranmc/farm/inventory/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cc/ranmc/farm/inventory/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,6 +106,8 @@
       <workItem from="1707932055748" duration="493000" />
       <workItem from="1708251740422" duration="241000" />
       <workItem from="1708251997134" duration="271000" />
+      <workItem from="1708252680329" duration="131000" />
+      <workItem from="1711122115838" duration="349000" />
     </task>
     <task id="LOCAL-00001" summary="新增 快速翻页">
       <option name="closed" value="true" />
@@ -185,7 +189,15 @@
       <option name="project" value="LOCAL" />
       <updated>1708252153234</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="放入非作物时检测背包是否已满掉落地面并提醒玩家">
+      <option name="closed" value="true" />
+      <created>1708252715961</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1708252715961</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

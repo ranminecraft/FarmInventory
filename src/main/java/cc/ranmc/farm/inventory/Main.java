@@ -52,7 +52,7 @@ public class Main extends JavaPlugin implements Listener{
 		color("§e-----------------------");
 		color("§bFarmInventory §dBy RanWhite");
 		color("§bVersion: " + getDescription().getVersion());
-		color("§chttp://www.ranmc.cc/");
+		color("§chttps://www.ranmc.cc/");
 		color("§e-----------------------");
 	    
 	    //加载配置
@@ -79,14 +79,12 @@ public class Main extends JavaPlugin implements Listener{
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args){
 		
-		if (!(sender instanceof Player)) {
+		if (!(sender instanceof Player p)) {
         	print(color("&b[FM] &c该指令不能在控制台输入"));
         	return true;
 		}
-	 
-		Player p = (Player) sender;
-		
-		if (cmd.getName().equalsIgnoreCase("fm") && args.length == 1){
+
+        if (cmd.getName().equalsIgnoreCase("fm") && args.length == 1){
 			if(args[0].equalsIgnoreCase("reload")) {
 				if (sender.hasPermission("fm.admin")) {
 					LoadConfig();
@@ -100,7 +98,7 @@ public class Main extends JavaPlugin implements Listener{
 			
 			if(args[0].equalsIgnoreCase("switch")) {
 				if (sender.hasPermission("fm.user")) {
-					boolean isOpen = getConfig().getBoolean(p.getName()+"#OPEN",true);
+					boolean isOpen = getConfig().getBoolean(p.getName() + "#OPEN",true);
 					if(isOpen) {
 						getConfig().set(p.getName()+"#OPEN", false);
 						p.sendMessage(color("&b桃花源>>>&c你已关闭作物仓库"));
@@ -109,12 +107,11 @@ public class Main extends JavaPlugin implements Listener{
 						p.sendMessage(color("&b桃花源>>>&a你已打开作物仓库"));
 					}
 					saveConfig();
-					return true;
-				} else {
+                } else {
 					p.sendMessage(color("&b[FM] &c你没有权限这样做"));
-					return true;
-				}
-			}
+                }
+                return true;
+            }
 			
 			if (sender.hasPermission("fm.user")) {
 				openCropGUI(p, args[0].toUpperCase(), 1);
@@ -138,7 +135,8 @@ public class Main extends JavaPlugin implements Listener{
 		if (page > 100) page = 100;
 		if (page < 1) page = 1;
 		int count = this.getConfig().getInt(player.getName() + "#" + crop);
-		Inventory inventory = Bukkit.createInventory(null, 54, color("&d&l桃花源丨作物仓库"));
+		Inventory inventory = Bukkit.createInventory(null, 54,
+				color("&d&l桃花源丨作物仓库"));
 
 		Cop cop = new Cop(crop);
 		if (cop.getMaterial() == Material.AIR) {
@@ -148,13 +146,18 @@ public class Main extends JavaPlugin implements Listener{
 
 		inventory.setItem(45, getItem(Material.RED_STAINED_GLASS_PANE, 1, "&c返回菜单"));
 		inventory.setItem(46, PANE);
-		inventory.setItem(47, getItem(Material.PAPER, 1, "&b当前页数 " + page, "&e左键切换上页", "&e右键快速翻页"));
+		inventory.setItem(47, getItem(Material.PAPER, 1,
+				"&b当前页数 " + page, "&e左键切换上页", "&e右键快速翻页"));
 		inventory.setItem(48, PANE);
-		inventory.setItem(49, getItem(cop.getMaterial(), 1, "&b" + cop.getName(), "&e仓库库存: " + count, "&e不要放其他东西哦", "&e否则丢了后果自负"));
+		inventory.setItem(49, getItem(cop.getMaterial(), 1,
+				"&b" + cop.getName(),
+				"&e仓库库存: " + count, "&e不要放其他东西哦", "&e否则丢了后果自负"));
 		inventory.setItem(50, PANE);
-		inventory.setItem(51, getItem(Material.PAPER, 1, "&b当前页数 " + page, "&e左键切换下页", "&e右键快速翻页"));
+		inventory.setItem(51, getItem(Material.PAPER, 1,
+				"&b当前页数 " + page, "&e左键切换下页", "&e右键快速翻页"));
 		inventory.setItem(52, PANE);
-		inventory.setItem(53, getItem(Material.RED_STAINED_GLASS_PANE, 1, "&c关闭菜单"));
+		inventory.setItem(53, getItem(Material.RED_STAINED_GLASS_PANE, 1,
+				"&c关闭菜单"));
 
 		int itemsPerPage = 45;
 		int maxStackSize = cop.getMaterial().getMaxStackSize();
@@ -184,8 +187,14 @@ public class Main extends JavaPlugin implements Listener{
 		if (event.getView().getTitle().equals(color("&d&l桃花源丨作物仓库"))) {
 			Inventory inventory = event.getClickedInventory();
 			if (inventory == null) return;
-			if (event.getRawSlot() >= 45 && inventory != player.getInventory()) event.setCancelled(true);
-			if (clicked == null && inventory == player.getInventory()) return;
+			if (event.getRawSlot() >= 45 &&
+					inventory != player.getInventory()) {
+				event.setCancelled(true);
+			}
+			if (clicked == null &&
+					inventory == player.getInventory()) {
+				return;
+			}
 
 			if (event.getRawSlot() == 53) {
 				player.closeInventory();
