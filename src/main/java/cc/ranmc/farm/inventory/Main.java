@@ -146,7 +146,7 @@ public class Main extends JavaPlugin implements Listener{
 		inventory.setItem(45, getItem(Material.RED_STAINED_GLASS_PANE, 1, "&c返回菜单"));
 		inventory.setItem(46, PANE);
 		inventory.setItem(47, getItem(Material.PAPER, 1,
-				"&b当前页数 " + page, "&e左键切换上页", "&e右键快速翻页"));
+				"&b当前页数 " + page, "&e左键切换上页", "&e右键跳转首页"));
 		inventory.setItem(48, PANE);
 		inventory.setItem(49, getItem(cop.getMaterial(), 1,
 				"&b" + cop.getName(),
@@ -210,7 +210,7 @@ public class Main extends JavaPlugin implements Listener{
 			if (event.getRawSlot() == 47) {
 				int page = Integer.parseInt(clicked.getItemMeta().getDisplayName().split(" ")[1]);
 				if (event.getClick().isLeftClick()) page--;
-				if (event.getClick().isRightClick()) page -= 10;
+				if (event.getClick().isRightClick()) page = 1;
 				save(player, inventory);
 				openCropGUI(player, copType, page);
 				return;
