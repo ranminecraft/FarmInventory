@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import cc.ranmc.papi.PapiAPI;
+import cc.ranmc.utils.MenuUtil;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -25,7 +28,7 @@ import static cc.ranmc.farm.inventory.Util.color;
 import static cc.ranmc.farm.inventory.Util.getItem;
 import static cc.ranmc.farm.inventory.Util.print;
 
-public class Main extends JavaPlugin implements Listener{
+public class Main extends JavaPlugin implements Listener {
 	
 	// 收集掉落物的农作物列表
 	private static final List<Material> CROP_TYPE = Arrays.asList(
@@ -38,18 +41,20 @@ public class Main extends JavaPlugin implements Listener{
 			Material.BEETROOT_SEEDS,
 			Material.NETHER_WART,
 			Material.PUMPKIN);
-	// PAPI变量
-	public Papi papi;
 	// 板
 	private static final ItemStack PANE = getItem(Material.GRAY_STAINED_GLASS_PANE, 1, " ");
 	// 提示
 	private final List<String> noteList = new ArrayList<>();
+	@Getter
+	private static Main instance;
+	private boolean ranmc = false;
 	
 	/**
 	 * 插件启动
 	 */
 	@Override
 	public void onEnable() {
+		instance = this;
 		color("§e-----------------------");
 		color("§bFarmInventory §dBy RanWhite");
 		color("§bVersion: " + getDescription().getVersion());
@@ -201,7 +206,9 @@ public class Main extends JavaPlugin implements Listener{
 			}
 			if (event.getRawSlot() == 45) {
 				save(player, inventory);
-				player.chat("/farm");
+				if (ranmc) {
+					MenuUtil.open(player, "farm");
+				} else player.closeInventory();
 				return;
 			}
 			ItemStack item = inventory.getItem(49);
@@ -333,13 +340,15 @@ public class Main extends JavaPlugin implements Listener{
         reloadConfig();
         
         // 检测PAPI
-        if( Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
-            papi = new Papi(this);
-            papi.register();
+		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new Papi(this).register();
 			print("§b[FM] §a成功载入PlaceholderAPI");
-        } else {
-        	print("§b[FM] §c无法加载PlaceholderAPI,可能会影响正常使用");
         }
+		if (Bukkit.getPluginManager().getPlugin("Ranmc") != null) {
+			PapiAPI.registerHandler(new RanmcPapi("fm"));
+			print("§b[FM] §a成功载入Ranmc");
+			ranmc = true;
+		}
 	}
 	
 }
