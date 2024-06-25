@@ -7,11 +7,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="McmmoPapi" />
+        <module name="FarmInventory" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="FarmInventory" target="1.5" />
-    </bytecodeTargetLevel>
   </component>
 </project>

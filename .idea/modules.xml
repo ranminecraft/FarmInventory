@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/McmmoPapi.iml" filepath="$PROJECT_DIR$/McmmoPapi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FarmInventory.iml" filepath="$PROJECT_DIR$/FarmInventory.iml" />
     </modules>
   </component>
 </project>
