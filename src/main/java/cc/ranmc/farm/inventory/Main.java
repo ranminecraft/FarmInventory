@@ -135,8 +135,8 @@ public class Main extends JavaPlugin implements Listener {
 	 */
 	public void openCropGUI(Player player, String crop, int page) {
 		if (page > 20 && !player.hasPermission("thy.vip")) page = 20;
-		if (page > 50 && !player.hasPermission("thy.svip")) page = 50;
-		if (page > 100) page = 100;
+		if (page > 30 && !player.hasPermission("thy.svip")) page = 30;
+		if (page > 50) page = 50;
 		if (page < 1) page = 1;
 		int count = this.getConfig().getInt(player.getName() + "#" + crop);
 		Inventory inventory = Bukkit.createInventory(null, 54,

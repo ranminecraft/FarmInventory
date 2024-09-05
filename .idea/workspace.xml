@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7474bad1-44d6-4a94-ab2b-1549b9902f99" name="Changes" comment="更新 1.20.6">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cc/ranmc/farm/inventory/Cop.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cc/ranmc/farm/inventory/Cop.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cc/ranmc/farm/inventory/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cc/ranmc/farm/inventory/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cc/ranmc/farm/inventory/Papi.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cc/ranmc/farm/inventory/Papi.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cc/ranmc/farm/inventory/Util.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cc/ranmc/farm/inventory/Util.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/plugin.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,6 +131,8 @@
       <workItem from="1718754351946" duration="8000" />
       <workItem from="1719288063588" duration="487000" />
       <workItem from="1719404289189" duration="2000" />
+      <workItem from="1719477024996" duration="104000" />
+      <workItem from="1721478116728" duration="472000" />
     </task>
     <task id="LOCAL-00001" summary="新增 快速翻页">
       <option name="closed" value="true" />
@@ -288,7 +286,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719288545937</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="更新 1.20.6">
+      <option name="closed" value="true" />
+      <created>1719477117554</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1719477117554</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
