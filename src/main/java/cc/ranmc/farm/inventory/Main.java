@@ -155,7 +155,7 @@ public class Main extends JavaPlugin implements Listener {
 		inventory.setItem(48, PANE);
 		inventory.setItem(49, getItem(cop.getMaterial(), 1,
 				"&b" + cop.getName(),
-				"&e仓库库存: " + count, "&e请勿放入其他东西", "&e造成丢失后果自负"));
+				"&b仓库库存: &e" + count, "&e点击取出该页作物"));
 		inventory.setItem(50, PANE);
 		inventory.setItem(51, getItem(Material.PAPER, 1,
 				"&b当前页数 " + page, "&e左键切换下页", "&e右键快速翻页"));
@@ -178,6 +178,16 @@ public class Main extends JavaPlugin implements Listener {
 		}
 		player.openInventory(inventory);
 	}
+
+	public static int getInventoryAirCount(Player player) {
+		int count = 0;
+		for (int i = 0; i < 36; i++) {
+			if (player.getInventory().getItem(i) == null) {
+				count++;
+			}
+		}
+		return count;
+	}
 	
 	/**
 	 * 菜单点击
@@ -197,6 +207,24 @@ public class Main extends JavaPlugin implements Listener {
 			}
 			if (clicked == null &&
 					inventory == player.getInventory()) {
+				return;
+			}
+			if (event.getRawSlot() == 49) {
+
+				int airCount = getInventoryAirCount(player);
+
+				for (int i = 0; i < 45; i++) {
+					ItemStack item = inventory.getItem(i);
+					if (item != null) {
+						if (airCount == 0) {
+							break;
+						}
+						inventory.setItem(i, new ItemStack(Material.AIR));
+						player.getInventory().addItem(item);
+						airCount--;
+					}
+				}
+				player.closeInventory();
 				return;
 			}
 
