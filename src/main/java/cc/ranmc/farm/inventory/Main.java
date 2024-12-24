@@ -313,7 +313,7 @@ public class Main extends JavaPlugin implements Listener {
 				} else {
 					inventory.setItem(i, new ItemStack(Material.AIR));
 					if (BasicUtil.isInventoryFull(player)) {
-						Objects.requireNonNull(player.getLocation().getWorld()).dropItem(player.getLocation(), item);
+						player.getInventory().addItem(item);
 						player.sendMessage(THY_PREFIX + color("&c请勿放入非作物,已返还背包"));
 					} else {
 						player.getWorld().dropItem(player.getLocation(), item);
