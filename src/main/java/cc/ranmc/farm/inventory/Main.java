@@ -4,8 +4,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import cc.ranmc.papi.PapiAPI;
+import cc.ranmc.utils.BasicUtil;
+import cc.ranmc.utils.ColorUtil;
 import cc.ranmc.utils.MenuUtil;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -27,6 +30,7 @@ import org.jetbrains.annotations.NotNull;
 import static cc.ranmc.farm.inventory.Util.color;
 import static cc.ranmc.farm.inventory.Util.getItem;
 import static cc.ranmc.farm.inventory.Util.print;
+import static cc.ranmc.utils.BasicUtil.THY_PREFIX;
 
 public class Main extends JavaPlugin implements Listener {
 	
@@ -308,8 +312,13 @@ public class Main extends JavaPlugin implements Listener {
 					count += inventory.getItem(i).getAmount();
 				} else {
 					inventory.setItem(i, new ItemStack(Material.AIR));
-					player.getWorld().dropItem(player.getLocation(), item);
-					player.sendMessage(color("&b桃花源>>>&c请勿放入非作物,已掉落地面"));
+					if (BasicUtil.isInventoryFull(player)) {
+						Objects.requireNonNull(player.getLocation().getWorld()).dropItem(player.getLocation(), item);
+						player.sendMessage(THY_PREFIX + color("&c请勿放入非作物,已返还背包"));
+					} else {
+						player.getWorld().dropItem(player.getLocation(), item);
+						player.sendMessage(THY_PREFIX + color("&c请勿放入非作物,已掉落地面"));
+					}
 				}
 			}
 		}
