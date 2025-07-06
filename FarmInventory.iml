@@ -1,22 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module type="JAVA_MODULE" version="4">
+<module version="4">
   <component name="AdditionalModuleElements">
     <content url="file://$MODULE_DIR$" dumb="true">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
     </content>
   </component>
-  <component name="EclipseModuleManager">
-    <libelement value="file://C:/Users/acer/.m2/repository/org/spigotmc/spigot-api/1.18.1-R0.1-SNAPSHOT/spigot-api-1.18.1-R0.1-SNAPSHOT.jar" />
-    <libelement value="file://E:/IDE/PlaceholderAPI-2.10.9.jar" />
-    <src_description expected_position="1">
-      <src_folder value="file://$MODULE_DIR$/src" expected_position="1" />
-    </src_description>
-  </component>
   <component name="FacetManager">
     <facet type="minecraft" name="Minecraft">
       <configuration>
         <autoDetectTypes>
-          <platformType>ADVENTURE</platformType>
+          <platformType>PAPER</platformType>
         </autoDetectTypes>
         <projectReimportVersion>1</projectReimportVersion>
       </configuration>
