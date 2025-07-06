@@ -1,35 +1,20 @@
 package cc.ranmc.farm;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
-import cc.ranmc.command.record.ICheckCommand;
 import cc.ranmc.farm.command.FarmAutoComplete;
 import cc.ranmc.farm.command.FarmCommand;
-import cc.ranmc.farm.constant.SQLKey;
 import cc.ranmc.farm.listener.FarmListener;
 import cc.ranmc.farm.papi.Papi;
 import cc.ranmc.farm.papi.RanmcPapi;
 import cc.ranmc.farm.sql.Database;
-import cc.ranmc.farm.sql.SQLFilter;
 import cc.ranmc.papi.PapiAPI;
 import lombok.Getter;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.NotNull;
 
 import static cc.ranmc.farm.util.FarmUtil.color;
-import static cc.ranmc.farm.util.FarmUtil.openCropGUI;
 import static cc.ranmc.farm.util.FarmUtil.print;
 
 public class Main extends JavaPlugin implements Listener {
@@ -85,27 +70,6 @@ public class Main extends JavaPlugin implements Listener {
 	 * 加载配置
 	 */
 	public void loadConfig() {
-        /*if (!new File(getDataFolder() + File.separator + "config.yml").exists()) {
-        	saveDefaultConfig();
-        }
-        reloadConfig();
-		Map<String, Map<String,String>> map = new HashMap<>();
-		for (String key : getConfig().getKeys(false)) {
-			String[] data = key.split("#");
-
-			Map<String,String> playerMap = map.getOrDefault(data[0], new HashMap<>());
-			if (data[1].equalsIgnoreCase("OPEN")) {
-				playerMap.put("OPEN", getConfig().getBoolean(key, true) ? "1" : "0");
-			} else {
-				playerMap.put(data[1], String.valueOf(getConfig().getInt(key, 0)));
-			}
-			playerMap.put(SQLKey.PLAYER, data[0]);
-			map.put(data[0], playerMap);
-		}
-		for (String key : map.keySet()) {
-			data.insert(SQLKey.PLAYER, map.get(key));
-		}
-		print("&b[作物仓库] &a已经同步数据" + map.size());*/
 
 		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
 			new Papi().register();
