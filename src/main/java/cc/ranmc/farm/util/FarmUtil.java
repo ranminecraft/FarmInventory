@@ -36,7 +36,7 @@ public class FarmUtil {
     public static String color(String text, Player p) {
         if(text == null) {
             text = "";
-            print("§b[FM] §c加载文本错误");
+            print("§b[FarmInventory] §c加载文本错误");
         }else {
             text=text.replace("&", "§")
                     .replace("%player%",p.getName())
@@ -50,7 +50,7 @@ public class FarmUtil {
     public static String color(String text) {
         if(text == null) {
             text = "";
-            print("§b[FM] §c加载文本错误");
+            print("§b[FarmInventory] §c加载文本错误");
         }else {
             text=text.replace("&", "§");
         }

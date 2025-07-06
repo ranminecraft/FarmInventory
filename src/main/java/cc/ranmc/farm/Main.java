@@ -7,6 +7,7 @@ import java.util.List;
 
 import cc.ranmc.farm.bean.Cop;
 import cc.ranmc.farm.papi.Papi;
+import cc.ranmc.farm.papi.RanmcPapi;
 import cc.ranmc.papi.PapiAPI;
 import cc.ranmc.utils.BasicUtil;
 import cc.ranmc.utils.MenuUtil;
@@ -79,7 +80,7 @@ public class Main extends JavaPlugin implements Listener {
 	 */
 	@Override
 	public void onDisable() {
-		color("§b[FM] §a已经成功卸载");
+		color("§b[FarmInventory] §a已经成功卸载");
 		super.onDisable();
 	}
 	
@@ -376,9 +377,14 @@ public class Main extends JavaPlugin implements Listener {
         }
         reloadConfig();
 
+		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+			new Papi(this).register();
+			print("§b[FarmInventory] §a成功载入PlaceholderAPI");
+		}
+
 		if (Bukkit.getPluginManager().getPlugin("Ranmc") != null) {
-			PapiAPI.registerHandler(new Papi("fm"));
-			print("§b[FM] §a成功载入Ranmc");
+			PapiAPI.registerHandler(new RanmcPapi("fm"));
+			print("§b[FarmInventory] §a成功载入Ranmc");
 			ranmc = true;
 		}
 	}
