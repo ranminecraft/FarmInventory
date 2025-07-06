@@ -154,9 +154,6 @@ public class FarmListener implements Listener {
     @EventHandler
     public void onBlockDropItemEvent(BlockDropItemEvent event) {
         Player player = event.getPlayer();
-        Map<String,String> playerMap = plugin.getData().selectMap(SQLKey.PLAYER,
-                new SQLFilter().where(SQLKey.PLAYER, player.getName()));
-        if (playerMap.getOrDefault(SQLKey.OPEN, "1").equals("0")) return;
         boolean isCrop = true;
         List<Item> items = event.getItems();
         if (items.isEmpty()) return;
@@ -167,6 +164,9 @@ public class FarmListener implements Listener {
             }
         }
         if (isCrop) {
+            Map<String,String> playerMap = plugin.getData().selectMap(SQLKey.PLAYER,
+                    new SQLFilter().where(SQLKey.PLAYER, player.getName()));
+            if (playerMap.getOrDefault(SQLKey.OPEN, "1").equals("0")) return;
             for (Item value : items) {
                 ItemStack item = value.getItemStack();
                 String type = item.getType().toString().toUpperCase();
