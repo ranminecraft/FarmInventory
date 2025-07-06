@@ -32,17 +32,17 @@ public class FarmUtil {
         if (page > 30 && !player.hasPermission("ranmc.svip")) page = 30;
         if (page > 50) page = 50;
         if (page < 1) page = 1;
-        Map<String,String> playerMap = plugin.getData().selectMap(SQLKey.PLAYER,
-                new SQLFilter().where(SQLKey.PLAYER, player.getName()));
-        int count = Integer.parseInt(playerMap.getOrDefault(crop.toUpperCase(), "0"));
-        Inventory inventory = Bukkit.createInventory(null, 54,
-                color("&d&l桃花源丨作物仓库"));
 
         Cop cop = new Cop(crop);
         if (cop.getMaterial() == Material.AIR) {
             player.sendMessage(color("&b桃花源>>>&c没有找到这个农作物"));
             return;
         }
+        Map<String,String> playerMap = plugin.getData().selectMap(SQLKey.PLAYER,
+                new SQLFilter().where(SQLKey.PLAYER, player.getName()));
+        int count = Integer.parseInt(playerMap.getOrDefault(crop.toUpperCase(), "0"));
+        Inventory inventory = Bukkit.createInventory(null, 54,
+                color("&d&l桃花源丨作物仓库"));
 
         inventory.setItem(45, getItem(Material.RED_STAINED_GLASS_PANE, 1, "&c返回菜单"));
         inventory.setItem(46, PANE);
