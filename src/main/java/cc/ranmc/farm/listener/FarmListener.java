@@ -167,14 +167,20 @@ public class FarmListener implements Listener {
             Map<String,String> playerMap = plugin.getData().selectMap(SQLKey.PLAYER,
                     new SQLFilter().where(SQLKey.PLAYER, player.getName()));
             if (playerMap.getOrDefault(SQLKey.OPEN, "1").equals("0")) return;
+            Map<String,Integer> updateMap = new HashMap<>();
             for (Item value : items) {
                 ItemStack item = value.getItemStack();
                 String type = item.getType().toString().toUpperCase();
-                plugin.getData().update(SQLKey.PLAYER,
-                        new SQLFilter()
-                                .set(type, Integer.parseInt(playerMap.getOrDefault(type, "0")) + item.getAmount())
-                                .where(playerMap.get(SQLKey.ID)));
+                updateMap.put(type,
+                        updateMap.getOrDefault(type,
+                                Integer.parseInt(playerMap.getOrDefault(type, "0")))
+                         + item.getAmount());
             }
+            SQLFilter filter = new SQLFilter();
+            for (String key : updateMap.keySet()) {
+                filter.set(key, updateMap.get(key));
+            }
+            plugin.getData().update(SQLKey.PLAYER, filter.where(playerMap.get(SQLKey.ID)));
             plugin.saveConfig();
             Bukkit.getGlobalRegionScheduler().runDelayed(plugin, task -> {
                 noteList.remove(player.getName());
