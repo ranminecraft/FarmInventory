@@ -3,6 +3,7 @@ package cc.ranmc.farm;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -48,13 +49,10 @@ public class Main extends JavaPlugin implements Listener {
 	public void onEnable() {
 		instance = this;
 		color("§e-----------------------");
-		color("§bFarmInventory §dBy RanWhite");
+		color("§bFarmInventory §dBy Ranica");
 		color("§bVersion: " + getDescription().getVersion());
 		color("§chttps://www.ranmc.cc/");
 		color("§e-----------------------");
-	    
-	    // 加载配置
-	    loadConfig();
 
 		data = new Database();
 	    
@@ -66,6 +64,9 @@ public class Main extends JavaPlugin implements Listener {
 		Objects.requireNonNull(Bukkit.getPluginCommand("fm")).setExecutor(new FarmCommand());
 		Objects.requireNonNull(Bukkit.getPluginCommand("farm")).setTabCompleter(new FarmAutoComplete());
 		Objects.requireNonNull(Bukkit.getPluginCommand("fm")).setTabCompleter(new FarmAutoComplete());
+
+		// 加载配置
+		loadConfig();
         
 		super.onEnable();
 	}
@@ -83,11 +84,28 @@ public class Main extends JavaPlugin implements Listener {
 	/**
 	 * 加载配置
 	 */
-	public void loadConfig(){
+	public void loadConfig() {
         /*if (!new File(getDataFolder() + File.separator + "config.yml").exists()) {
         	saveDefaultConfig();
         }
-        reloadConfig();*/
+        reloadConfig();
+		Map<String, Map<String,String>> map = new HashMap<>();
+		for (String key : getConfig().getKeys(false)) {
+			String[] data = key.split("#");
+
+			Map<String,String> playerMap = map.getOrDefault(data[0], new HashMap<>());
+			if (data[1].equalsIgnoreCase("OPEN")) {
+				playerMap.put("OPEN", getConfig().getBoolean(key, true) ? "1" : "0");
+			} else {
+				playerMap.put(data[1], String.valueOf(getConfig().getInt(key, 0)));
+			}
+			playerMap.put(SQLKey.PLAYER, data[0]);
+			map.put(data[0], playerMap);
+		}
+		for (String key : map.keySet()) {
+			data.insert(SQLKey.PLAYER, map.get(key));
+		}
+		print("&b[作物仓库] &a已经同步数据" + map.size());*/
 
 		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
 			new Papi().register();

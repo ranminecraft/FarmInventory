@@ -24,43 +24,40 @@ public class FarmCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args){
 
-        if (!(sender instanceof Player player)) {
-            print(color("&b[作物仓库] &c该指令不能在控制台输入"));
-            return true;
-        }
-
         if (args.length == 1) {
             if(args[0].equalsIgnoreCase("reload")) {
                 if (sender.hasPermission("fm.admin")) {
                     plugin.loadConfig();
-                    player.sendMessage(color("&b[作物仓库] &a重载完成"));
+                    sender.sendMessage(color("&b[作物仓库] &a重载完成"));
                 } else {
-                    player.sendMessage(color("&b[作物仓库] &c你没有权限这样做"));
+                    sender.sendMessage(color("&b[作物仓库] &c你没有权限这样做"));
                 }
+                return true;
+            }
+
+            if (!(sender instanceof Player player)) {
+                print(color("&b[作物仓库] &c该指令不能在控制台输入"));
+                return true;
+            }
+
+            if (!sender.hasPermission("fm.user")) {
+                player.sendMessage(color("&b[作物仓库] &c你没有权限这样做"));
                 return true;
             }
 
             if (args[0].equalsIgnoreCase("switch")) {
-                if (sender.hasPermission("fm.user")) {
-                    Map<String,String> playerMap = plugin.getData().selectMap(SQLKey.PLAYER,
-                            new SQLFilter().where(SQLKey.PLAYER, player.getName()));
-                    boolean isOpen = playerMap.getOrDefault(SQLKey.OPEN, "1").equals("1");
-                    plugin.getData().update(SQLKey.PLAYER,
-                            new SQLFilter()
-                                    .set(SQLKey.OPEN, isOpen ? "0" : "1")
-                                    .where(playerMap.get(SQLKey.ID)));
-                    player.sendMessage(color("&b桃花源>>>&e你已" + (isOpen ? "关闭" : "打开") + "作物仓库"));
-                } else {
-                    player.sendMessage(color("&b[作物仓库] &c你没有权限这样做"));
-                }
+                Map<String,String> playerMap = plugin.getData().selectMap(SQLKey.PLAYER,
+                        new SQLFilter().where(SQLKey.PLAYER, player.getName()));
+                boolean isOpen = playerMap.getOrDefault(SQLKey.OPEN, "1").equals("1");
+                plugin.getData().update(SQLKey.PLAYER,
+                        new SQLFilter()
+                                .set(SQLKey.OPEN, isOpen ? "0" : "1")
+                                .where(playerMap.get(SQLKey.ID)));
+                player.sendMessage(color("&b桃花源>>>&e你已" + (isOpen ? "关闭" : "打开") + "作物仓库"));
                 return true;
             }
 
-            if (sender.hasPermission("fm.user")) {
-                openCropGUI(player, args[0], 1);
-            } else {
-                sender.sendMessage("§c你没有权限这么做");
-            }
+            openCropGUI(player, args[0], 1);
             return true;
         }
 

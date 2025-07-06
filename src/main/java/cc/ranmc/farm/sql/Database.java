@@ -55,9 +55,14 @@ public class Database {
                 " CARROT TEXT," +
                 " WHEAT TEXT," +
                 " WHEAT_SEEDS TEXT," +
+                " BEETROOT TEXT," +
                 " BEETROOT_SEEDS TEXT," +
                 " NETHER_WART TEXT," +
                 " PUMPKIN TEXT," +
+                " MELON TEXT," +
+                " CACTUS TEXT," +
+                " BAMBOO TEXT," +
+                " SUGAR_CANE TEXT," +
                 " POTATO TEXT)");
     }
 
