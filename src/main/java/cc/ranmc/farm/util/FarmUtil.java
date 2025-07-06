@@ -33,6 +33,7 @@ public class FarmUtil {
         if (page > 50) page = 50;
         if (page < 1) page = 1;
 
+        crop = crop.toUpperCase();
         Cop cop = new Cop(crop);
         if (cop.getMaterial() == Material.AIR) {
             player.sendMessage(color("&b桃花源>>>&c没有找到这个农作物"));
@@ -40,7 +41,7 @@ public class FarmUtil {
         }
         Map<String,String> playerMap = plugin.getData().selectMap(SQLKey.PLAYER,
                 new SQLFilter().where(SQLKey.PLAYER, player.getName()));
-        int count = Integer.parseInt(playerMap.getOrDefault(crop.toUpperCase(), "0"));
+        int count = Integer.parseInt(playerMap.getOrDefault(crop, "0"));
         Inventory inventory = Bukkit.createInventory(null, 54,
                 color("&d&l桃花源丨作物仓库"));
 
