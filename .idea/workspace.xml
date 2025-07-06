@@ -5,7 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7474bad1-44d6-4a94-ab2b-1549b9902f99" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/target/classes/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/plugin.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/FarmInventory.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/FarmInventory.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_1_1_5_57__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_1_1_5_57__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cc/ranmc/farm/inventory/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cc/ranmc/farm/inventory/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cc/ranmc/farm/inventory/Papi.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cc/ranmc/farm/inventory/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cc/ranmc/farm/inventory/Main.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +31,7 @@
   <component name="Git.Settings">
     <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -29,12 +39,12 @@
     &quot;assignee&quot;: &quot;ranminecraft&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/ranminecraft/FarmInventory.git&quot;,
-    &quot;accountId&quot;: &quot;89b0b79e-0bf6-4f57-8102-11f535f73dc2&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/ranminecraft/FarmInventory.git",
+    "accountId": "503bcdfd-81e0-4e79-8de1-565a31be5a39"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 7
@@ -51,11 +61,13 @@
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Project/FarmInventory",
+    "last_opened_file_path": "/Users/rain/Desktop/Project/FarmInventory",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -67,14 +79,6 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
-      </set>
-    </attachedChunks>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -140,7 +144,8 @@
       <workItem from="1725813634164" duration="234000" />
       <workItem from="1725817913783" duration="1161000" />
       <workItem from="1725819104833" duration="45000" />
-      <workItem from="1735082681818" duration="327000" />
+      <workItem from="1735082681818" duration="614000" />
+      <workItem from="1735244493351" duration="55000" />
     </task>
     <task id="LOCAL-00001" summary="新增 快速翻页">
       <option name="closed" value="true" />
@@ -350,7 +355,31 @@
       <option name="project" value="LOCAL" />
       <updated>1735082841233</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="更新 版本号">
+      <option name="closed" value="true" />
+      <created>1735083018631</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1735083018631</updated>
+    </task>
+    <task id="LOCAL-00028" summary="修复 错误">
+      <option name="closed" value="true" />
+      <created>1735083108176</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1735083108176</updated>
+    </task>
+    <task id="LOCAL-00029" summary="修复 错误">
+      <option name="closed" value="true" />
+      <created>1735083133115</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1735083133115</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -375,6 +404,7 @@
     <MESSAGE value="支持 一键取出" />
     <MESSAGE value="优化 返还" />
     <MESSAGE value="更新 版本号" />
-    <option name="LAST_COMMIT_MESSAGE" value="更新 版本号" />
+    <MESSAGE value="修复 错误" />
+    <option name="LAST_COMMIT_MESSAGE" value="修复 错误" />
   </component>
 </project>

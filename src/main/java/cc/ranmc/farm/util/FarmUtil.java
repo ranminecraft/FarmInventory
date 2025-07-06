@@ -1,4 +1,4 @@
-package cc.ranmc.farm.inventory;
+package cc.ranmc.farm.util;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class Util {
+public class FarmUtil {
     /**
      * 输出日志
      * @param text 内容
@@ -88,7 +88,7 @@ public class Util {
         ItemStack item = new ItemStack(material,count);
         ItemMeta meta = item.getItemMeta();
         Objects.requireNonNull(meta).setDisplayName(color(name));
-        lore.replaceAll(Util::color);
+        lore.replaceAll(FarmUtil::color);
         meta.setLore(lore);
         item.setItemMeta(meta);
         return item;

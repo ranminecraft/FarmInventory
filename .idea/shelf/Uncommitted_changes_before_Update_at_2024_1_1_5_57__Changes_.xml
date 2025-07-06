@@ -3,17 +3,11 @@
   <option name="DESCRIPTION" value="Uncommitted changes before Update at 2024/1/1 5:57 [Changes]" />
   <binary>
     <option name="BEFORE_PATH" value="target/classes/cc/ranmc/farm/inventory/Papi.class" />
-    <option name="AFTER_PATH" />
-    <option name="SHELVED_PATH" />
   </binary>
   <binary>
     <option name="BEFORE_PATH" value="target/classes/cc/ranmc/farm/inventory/Util.class" />
-    <option name="AFTER_PATH" />
-    <option name="SHELVED_PATH" />
   </binary>
   <binary>
     <option name="BEFORE_PATH" value="target/classes/cc/ranmc/farm/inventory/Cop.class" />
-    <option name="AFTER_PATH" />
-    <option name="SHELVED_PATH" />
   </binary>
 </changelist>

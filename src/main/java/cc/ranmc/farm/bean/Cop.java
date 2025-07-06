@@ -1,4 +1,4 @@
-package cc.ranmc.farm.inventory;
+package cc.ranmc.farm.bean;
 
 import lombok.Data;
 import org.bukkit.Material;

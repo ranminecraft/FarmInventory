@@ -1,5 +1,6 @@
-package cc.ranmc.farm.inventory;
+package cc.ranmc.farm.papi;
 
+import cc.ranmc.farm.Main;
 import cc.ranmc.papi.bean.PapiHandler;
 import org.bukkit.entity.Player;
 

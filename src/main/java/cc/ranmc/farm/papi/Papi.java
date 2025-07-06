@@ -1,5 +1,6 @@
-package cc.ranmc.farm.inventory;
+package cc.ranmc.farm.papi;
 
+import cc.ranmc.farm.Main;
 import org.bukkit.OfflinePlayer;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;

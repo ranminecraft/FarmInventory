@@ -1,14 +1,14 @@
-package cc.ranmc.farm.inventory;
+package cc.ranmc.farm;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
+import cc.ranmc.farm.bean.Cop;
+import cc.ranmc.farm.papi.Papi;
 import cc.ranmc.papi.PapiAPI;
 import cc.ranmc.utils.BasicUtil;
-import cc.ranmc.utils.ColorUtil;
 import cc.ranmc.utils.MenuUtil;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -27,9 +27,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-import static cc.ranmc.farm.inventory.Util.color;
-import static cc.ranmc.farm.inventory.Util.getItem;
-import static cc.ranmc.farm.inventory.Util.print;
+import static cc.ranmc.farm.util.FarmUtil.color;
+import static cc.ranmc.farm.util.FarmUtil.getItem;
+import static cc.ranmc.farm.util.FarmUtil.print;
 import static cc.ranmc.utils.BasicUtil.THY_PREFIX;
 
 public class Main extends JavaPlugin implements Listener {
@@ -375,14 +375,9 @@ public class Main extends JavaPlugin implements Listener {
         	saveDefaultConfig();
         }
         reloadConfig();
-        
-        // 检测PAPI
-		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            new Papi(this).register();
-			print("§b[FM] §a成功载入PlaceholderAPI");
-        }
+
 		if (Bukkit.getPluginManager().getPlugin("Ranmc") != null) {
-			PapiAPI.registerHandler(new RanmcPapi("fm"));
+			PapiAPI.registerHandler(new Papi("fm"));
 			print("§b[FM] §a成功载入Ranmc");
 			ranmc = true;
 		}
