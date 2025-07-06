@@ -14,11 +14,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockDropItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,6 +44,22 @@ public class FarmListener implements Listener {
             Material.BEETROOT_SEEDS,
             Material.NETHER_WART,
             Material.PUMPKIN);
+
+    /**
+     * 菜单关闭
+     * @param event 事件
+     */
+    @EventHandler
+    public void onPlayerJoinEvent(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+        Map<String,String> playerMap = plugin.getData().selectMap(SQLKey.PLAYER,
+                new SQLFilter().where(SQLKey.PLAYER, player.getName()));
+        if (playerMap.isEmpty()) {
+            Map<String,String> parms = new HashMap<>();
+            parms.put(SQLKey.PLAYER, player.getName());
+            plugin.getData().insert(SQLKey.PLAYER, parms);
+        }
+    }
 
     /**
      * 菜单关闭

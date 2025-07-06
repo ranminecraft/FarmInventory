@@ -5,7 +5,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
+import cc.ranmc.command.record.ICheckCommand;
+import cc.ranmc.farm.command.FarmAutoComplete;
+import cc.ranmc.farm.command.FarmCommand;
 import cc.ranmc.farm.constant.SQLKey;
 import cc.ranmc.farm.listener.FarmListener;
 import cc.ranmc.farm.papi.Papi;
@@ -56,6 +60,12 @@ public class Main extends JavaPlugin implements Listener {
 	    
 	    // 注册 Event
         Bukkit.getPluginManager().registerEvents(new FarmListener(), this);
+
+		// 注册指令
+		Objects.requireNonNull(Bukkit.getPluginCommand("farm")).setExecutor(new FarmCommand());
+		Objects.requireNonNull(Bukkit.getPluginCommand("fm")).setExecutor(new FarmCommand());
+		Objects.requireNonNull(Bukkit.getPluginCommand("farm")).setTabCompleter(new FarmAutoComplete());
+		Objects.requireNonNull(Bukkit.getPluginCommand("fm")).setTabCompleter(new FarmAutoComplete());
         
 		super.onEnable();
 	}
@@ -71,83 +81,13 @@ public class Main extends JavaPlugin implements Listener {
 	}
 	
 	/**
-	 * 指令控制
-	 */
-	@Override
-	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args){
-		
-		if (!(sender instanceof Player player)) {
-        	print(color("&b[作物仓库] &c该指令不能在控制台输入"));
-        	return true;
-		}
-
-        if (cmd.getName().equalsIgnoreCase("fm") && args.length == 1){
-			if(args[0].equalsIgnoreCase("reload")) {
-				if (sender.hasPermission("fm.admin")) {
-					loadConfig();
-					player.sendMessage(color("&b[作物仓库] &a重载完成"));
-                } else {
-					player.sendMessage(color("&b[作物仓库] &c你没有权限这样做"));
-                }
-                return true;
-            }
-			
-			if(args[0].equalsIgnoreCase("switch")) {
-				if (sender.hasPermission("fm.user")) {
-					Map<String,String> playerMap = data.selectMap(SQLKey.PLAYER,
-							new SQLFilter().where(SQLKey.PLAYER, player.getName()));
-					boolean isOpen = playerMap.getOrDefault(SQLKey.OPEN, "1").equals("0");
-					if (isOpen) {
-						data.selectMap(SQLKey.PLAYER,
-								new SQLFilter()
-										.set(SQLKey.OPEN, "0")
-										.where(playerMap.get(SQLKey.ID)));
-						player.sendMessage(color("&b桃花源>>>&c你已关闭作物仓库"));
-					} else {
-						data.selectMap(SQLKey.PLAYER,
-								new SQLFilter()
-										.set(SQLKey.OPEN, "1")
-										.where(playerMap.get(SQLKey.ID)));
-						player.sendMessage(color("&b桃花源>>>&a你已打开作物仓库"));
-					}
-					saveConfig();
-                } else {
-					player.sendMessage(color("&b[作物仓库] &c你没有权限这样做"));
-                }
-                return true;
-            }
-			
-			if (sender.hasPermission("fm.user")) {
-				openCropGUI(player, args[0], 1);
-            } else {
-				sender.sendMessage("§c你没有权限这么做");
-            }
-            return true;
-        }
-		
-		sender.sendMessage("§c未知指令");
-		return true;
-	}
-	
-	/**
-	 * 命令补全
-	 */
-	@Override
-	public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, String alias, String[] args) {
-		if (alias.equalsIgnoreCase("fm") && args.length == 1 && sender.hasPermission("fm.user")) {
-			return List.of("switch");
-		}
-		return new ArrayList<>();
-	}
-	
-	/**
 	 * 加载配置
 	 */
 	public void loadConfig(){
-        if (!new File(getDataFolder() + File.separator + "config.yml").exists()) {
+        /*if (!new File(getDataFolder() + File.separator + "config.yml").exists()) {
         	saveDefaultConfig();
         }
-        reloadConfig();
+        reloadConfig();*/
 
 		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
 			new Papi().register();

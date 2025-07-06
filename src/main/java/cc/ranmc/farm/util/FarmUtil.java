@@ -124,7 +124,7 @@ public class FarmUtil {
         } else if (count < pageCount) {
             totalItems -= pageCount - count;
         }
-        plugin.getData().selectMap(SQLKey.PLAYER,
+        plugin.getData().update(SQLKey.PLAYER,
                 new SQLFilter()
                         .set(cop.getMaterial().toString().toUpperCase(), totalItems)
                         .where(playerMap.get(SQLKey.ID)));

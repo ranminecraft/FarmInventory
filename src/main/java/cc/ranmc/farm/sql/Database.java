@@ -122,7 +122,7 @@ public class Database {
         ResultSet rs = null;
         try {
             rs = connection.createStatement().executeQuery(command);
-            if (!rs.isClosed()) {
+            if (rs.next()) {
                 ResultSetMetaData md = rs.getMetaData();
                 for (int i = 1; i <= md.getColumnCount(); i++) {
                     if (rs.getString(i) != null) {
