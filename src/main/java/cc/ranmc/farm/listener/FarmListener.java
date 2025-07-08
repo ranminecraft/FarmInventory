@@ -19,11 +19,12 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
+import static cc.ranmc.farm.constant.FarmConstant.CROP_TYPE;
 import static cc.ranmc.farm.util.FarmUtil.color;
 import static cc.ranmc.farm.util.FarmUtil.getInventoryAirCount;
 import static cc.ranmc.farm.util.FarmUtil.openCropGUI;
@@ -33,17 +34,6 @@ public class FarmListener implements Listener {
     private static final Main plugin = Main.getInstance();
     // 提示
     private final List<String> noteList = new ArrayList<>();
-    // 收集掉落物的农作物列表
-    private static final List<Material> CROP_TYPE = Arrays.asList(
-            Material.CACTUS,
-            Material.POTATO,
-            Material.CARROT,
-            Material.WHEAT,
-            Material.WHEAT_SEEDS,
-            Material.BEETROOT,
-            Material.BEETROOT_SEEDS,
-            Material.NETHER_WART,
-            Material.PUMPKIN);
 
     /**
      * 菜单关闭
@@ -129,7 +119,7 @@ public class FarmListener implements Listener {
             if (item == null || item.getType() == Material.AIR) return;
             String copType = item.getType().toString();
             if (event.getRawSlot() == 47) {
-                int page = Integer.parseInt(clicked.getItemMeta().getDisplayName().split(" ")[1]);
+                int page = Integer.parseInt(Objects.requireNonNull(clicked).getItemMeta().getDisplayName().split(" ")[1]);
                 if (event.getClick().isLeftClick()) page--;
                 if (event.getClick().isRightClick()) page = 1;
                 FarmUtil.save(player, inventory);
@@ -137,7 +127,7 @@ public class FarmListener implements Listener {
                 return;
             }
             if (event.getRawSlot() == 51) {
-                int page = Integer.parseInt(clicked.getItemMeta().getDisplayName().split(" ")[1]);
+                int page = Integer.parseInt(Objects.requireNonNull(clicked).getItemMeta().getDisplayName().split(" ")[1]);
                 if (event.getClick().isLeftClick()) page++;
                 if (event.getClick().isRightClick()) page += 10;
                 FarmUtil.save(player, inventory);

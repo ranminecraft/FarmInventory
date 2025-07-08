@@ -13,21 +13,16 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static cc.ranmc.farm.constant.FarmConstant.PANE;
 import static cc.ranmc.utils.BasicUtil.THY_PREFIX;
 
 public class FarmUtil {
 
     private static final Main plugin = Main.getInstance();
-    // 板
-    private static final ItemStack PANE = getItem(Material.GRAY_STAINED_GLASS_PANE, 1, " ");
-    // 玩家数据
-    public static final Map<String,Map<String,String>> SAVE_MAP = new HashMap<>();
-
 
     /**
      * 打开农作物仓库菜单
