@@ -10,8 +10,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Map;
-
 import static cc.ranmc.farm.util.FarmUtil.color;
 import static cc.ranmc.farm.util.FarmUtil.openCropGUI;
 import static cc.ranmc.farm.util.FarmUtil.print;
@@ -52,7 +50,7 @@ public class FarmCommand implements CommandExecutor {
                 boolean isOpen = playerMap.getBoolean(SQLKey.OPEN, true);
                 plugin.getData().update(SQLKey.PLAYER,
                         new SQLFilter()
-                                .set(SQLKey.OPEN, isOpen ? false : true)
+                                .set(SQLKey.OPEN, !isOpen)
                                 .where(playerMap.getInt(SQLKey.ID)));
                 player.sendMessage(color("&b桃花源>>>&e你已" + (isOpen ? "关闭" : "打开") + "作物仓库"));
                 return true;
