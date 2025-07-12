@@ -2,7 +2,8 @@ package cc.ranmc.farm.listener;
 
 import cc.ranmc.farm.Main;
 import cc.ranmc.farm.constant.SQLKey;
-import cc.ranmc.farm.sql.SQLFilter;
+import cc.ranmc.farm.bean.SQLData;
+import cc.ranmc.farm.bean.SQLFilter;
 import cc.ranmc.farm.util.FarmUtil;
 import cc.ranmc.utils.MenuUtil;
 import org.bukkit.Bukkit;
@@ -42,11 +43,11 @@ public class FarmListener implements Listener {
     @EventHandler
     public void onPlayerJoinEvent(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        Map<String,String> playerMap = plugin.getData().selectMap(SQLKey.PLAYER,
+        SQLData playerMap = plugin.getData().selectMap(SQLKey.PLAYER,
                 new SQLFilter().where(SQLKey.PLAYER, player.getName()));
         if (playerMap.isEmpty()) {
-            Map<String,String> parms = new HashMap<>();
-            parms.put(SQLKey.PLAYER, player.getName());
+            SQLData parms = new SQLData();
+            parms.set(SQLKey.PLAYER, player.getName());
             plugin.getData().insert(SQLKey.PLAYER, parms);
         }
     }
@@ -154,23 +155,22 @@ public class FarmListener implements Listener {
             }
         }
         if (isCrop) {
-            Map<String,String> playerMap = plugin.getData().selectMap(SQLKey.PLAYER,
+            SQLData playerMap = plugin.getData().selectMap(SQLKey.PLAYER,
                     new SQLFilter().where(SQLKey.PLAYER, player.getName()));
-            if (playerMap.getOrDefault(SQLKey.OPEN, "1").equals("0")) return;
+            if (!playerMap.getBoolean(SQLKey.OPEN, true)) return;
             Map<String,Integer> updateMap = new HashMap<>();
             for (Item value : items) {
                 ItemStack item = value.getItemStack();
                 String type = item.getType().toString().toUpperCase();
                 updateMap.put(type,
-                        updateMap.getOrDefault(type,
-                                Integer.parseInt(playerMap.getOrDefault(type, "0")))
+                        updateMap.getOrDefault(type, playerMap.getInt(type, 0))
                          + item.getAmount());
             }
             SQLFilter filter = new SQLFilter();
             for (String key : updateMap.keySet()) {
                 filter.set(key, updateMap.get(key));
             }
-            plugin.getData().update(SQLKey.PLAYER, filter.where(playerMap.get(SQLKey.ID)));
+            plugin.getData().update(SQLKey.PLAYER, filter.where(playerMap.getInt(SQLKey.ID)));
             plugin.saveConfig();
             Bukkit.getGlobalRegionScheduler().runDelayed(plugin, task -> {
                 noteList.remove(player.getName());

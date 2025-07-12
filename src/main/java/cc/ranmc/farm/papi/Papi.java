@@ -1,8 +1,9 @@
 package cc.ranmc.farm.papi;
 
 import cc.ranmc.farm.Main;
+import cc.ranmc.farm.bean.SQLData;
 import cc.ranmc.farm.constant.SQLKey;
-import cc.ranmc.farm.sql.SQLFilter;
+import cc.ranmc.farm.bean.SQLFilter;
 import org.bukkit.OfflinePlayer;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
@@ -40,8 +41,8 @@ public class Papi extends PlaceholderExpansion {
     public String onRequest(OfflinePlayer player, @NotNull String identifier){
     	
         if (player == null || !player.isOnline()) return "&c目标错误";
-        Map<String,String> playerMap = plugin.getData().selectMap(SQLKey.PLAYER,
+        SQLData playerMap = plugin.getData().selectMap(SQLKey.PLAYER,
                 new SQLFilter().where(SQLKey.PLAYER, player.getName()));
-        return playerMap.getOrDefault(identifier.toUpperCase(), "0");
+        return String.valueOf(playerMap.getInt(identifier.toUpperCase(), 0));
     }
 }

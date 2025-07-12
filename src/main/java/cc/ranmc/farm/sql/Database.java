@@ -1,6 +1,8 @@
 package cc.ranmc.farm.sql;
 
 import cc.ranmc.farm.Main;
+import cc.ranmc.farm.bean.SQLData;
+import cc.ranmc.farm.bean.SQLFilter;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,9 +12,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static cc.ranmc.utils.BasicUtil.print;
 
@@ -51,38 +51,55 @@ public class Database {
         runCommand("CREATE TABLE PLAYER " +
                 "(ID INTEGER PRIMARY KEY AUTO_INCREMENT," +
                 " PLAYER TEXT NOT NULL," +
-                " OPEN TEXT," +
-                " CARROT TEXT," +
-                " WHEAT TEXT," +
-                " WHEAT_SEEDS TEXT," +
-                " BEETROOT TEXT," +
-                " BEETROOT_SEEDS TEXT," +
-                " NETHER_WART TEXT," +
-                " PUMPKIN TEXT," +
-                " MELON TEXT," +
-                " CACTUS TEXT," +
-                " BAMBOO TEXT," +
-                " SUGAR_CANE TEXT," +
-                " POTATO TEXT)");
+                " OPEN BOOLEAN," +
+                " CARROT INTEGER," +
+                " WHEAT INTEGER," +
+                " WHEAT_SEEDS INTEGER," +
+                " BEETROOT INTEGER," +
+                " BEETROOT_SEEDS INTEGER," +
+                " NETHER_WART INTEGER," +
+                " PUMPKIN INTEGER," +
+                " MELON INTEGER," +
+                " CACTUS INTEGER," +
+                " BAMBOO INTEGER," +
+                " SUGAR_CANE INTEGER," +
+                " POTATO INTEGER)");
     }
 
     /**
      * 新增数据库
      * @param table 表
-     * @param map 内容
+     * @param data 内容
      */
-    public int insert(String table, Map<String, String> map) {
+    public int insert(String table, SQLData data) {
         StringBuilder name = new StringBuilder();
         StringBuilder value = new StringBuilder();
-        for (String key : map.keySet()) {
+        for (String key : data.keySet()) {
             name.append(key);
             name.append(",");
-            value.append(map.get(key));
-            value.append("','");
+            value.append("?,");
         }
         if (!name.isEmpty()) name.deleteCharAt(name.length() - 1);
-        if (value.length() >= 3) value.delete(value.length() - 3, value.length());
-        return runCommandGetId("INSERT INTO " + table.toUpperCase() + " ("+name+") VALUES ('" + value + "');");
+        if (!value.isEmpty()) value.deleteCharAt(value.length() - 1);
+        String command = "INSERT INTO " + table.toUpperCase() + " ("+name+") VALUES (" + value + ");";
+        try {
+            PreparedStatement statement = connection.prepareStatement(command, Statement.RETURN_GENERATED_KEYS);
+            int i = 1;
+            for (String key : data.keySet()) {
+                statement.setObject(i, data.getObject(key));
+                i++;
+            }
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                ResultSet generatedKeys = statement.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            print("数据库错误" + e.getMessage() + "\n" + command);
+        }
+        return -1;
     }
 
     /**
@@ -91,30 +108,30 @@ public class Database {
      * @param filter 数据
      * @return 数据
      */
-    public Map<String, String> selectMap(String table, SQLFilter filter) {
+    public SQLData selectMap(String table, SQLFilter filter) {
         return queryMap("SELECT * FROM " + table.toUpperCase() + filter.getResult());
     }
 
-    public Map<String, String> selectMap(String table) {
+    public SQLData selectMap(String table) {
         return queryMap("SELECT * FROM " + table.toUpperCase());
     }
 
-    public List<Map<String, String>> selectList(String table, SQLFilter filter) {
+    public List<SQLData> selectList(String table, SQLFilter filter) {
         return queryList("SELECT * FROM " + table.toUpperCase() + filter.getResult());
     }
 
-    public List<Map<String, String>> selectList(String table) {
+    public List<SQLData> selectList(String table) {
         return queryList("SELECT * FROM " + table.toUpperCase());
     }
 
     public int selectCount(String table) {
-        return Integer.parseInt(queryMap("SELECT COUNT(*) FROM " + table)
-                .getOrDefault("COUNT(*)", "0"));
+        return queryMap("SELECT COUNT(*) FROM " + table)
+                .getInt("COUNT(*)", 0);
     }
 
     public int selectCount(String table, SQLFilter filter) {
-        return Integer.parseInt(queryMap("SELECT COUNT(*) FROM " + table.toUpperCase() + filter.getResult())
-                .getOrDefault("COUNT(*)", "0"));
+        return queryMap("SELECT COUNT(*) FROM " + table.toUpperCase() + filter.getResult())
+                .getInt("COUNT(*)", 0);
     }
 
     /**
@@ -122,8 +139,8 @@ public class Database {
      * @param command 命令
      * @return 数据
      */
-    protected Map<String, String> queryMap(String command) {
-        Map<String, String> map = new HashMap<>();
+    protected SQLData queryMap(String command) {
+        SQLData data = new SQLData();
         ResultSet rs = null;
         try {
             rs = connection.createStatement().executeQuery(command);
@@ -131,7 +148,7 @@ public class Database {
                 ResultSetMetaData md = rs.getMetaData();
                 for (int i = 1; i <= md.getColumnCount(); i++) {
                     if (rs.getString(i) != null) {
-                        map.put(md.getColumnName(i), rs.getString(i));
+                        data.set(md.getColumnName(i), rs.getObject(i));
                     }
                 }
             }
@@ -144,24 +161,24 @@ public class Database {
                 print("数据库错误" + e.getMessage() + "\n" + command);
             }
         }
-        return map;
+        return data;
     }
 
-    protected List<Map<String, String>> queryList(String command) {
-        List<Map<String, String>> list = new ArrayList<>();
+    protected List<SQLData> queryList(String command) {
+        List<SQLData> list = new ArrayList<>();
         ResultSet rs = null;
         try {
             rs = connection.createStatement().executeQuery(command);
             while (rs.next()) {
                 if (!rs.isClosed()) {
-                    Map<String, String> map = new HashMap<>();
+                    SQLData data = new SQLData();
                     ResultSetMetaData md = rs.getMetaData();
                     for (int i = 1; i <= md.getColumnCount(); i++) {
                         if (rs.getString(i) != null) {
-                            map.put(md.getColumnName(i), rs.getString(i));
+                            data.set(md.getColumnName(i), rs.getObject(i));
                         }
                     }
-                    list.add(map);
+                    list.add(data);
                 }
             }
         } catch (Exception e) {

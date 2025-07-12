@@ -1,4 +1,4 @@
-package cc.ranmc.farm.sql;
+package cc.ranmc.farm.bean;
 
 
 import lombok.Getter;
@@ -6,6 +6,11 @@ import lombok.Getter;
 @Getter
 public class SQLFilter {
     private String result = "";
+
+    public SQLFilter set(String name, Boolean value) {
+        result += " SET " + name + " = " + value;
+        return this;
+    }
 
     public SQLFilter set(String name, String value) {
         result += " SET " + name + " = '" + value + "'";
@@ -38,7 +43,8 @@ public class SQLFilter {
     }
 
     public SQLFilter where(int value) {
-        return where(String.valueOf(value));
+        result += " WHERE ID = " + value;
+        return this;
     }
 
     public SQLFilter whereLower(String name, String value) {
@@ -51,22 +57,27 @@ public class SQLFilter {
         return this;
     }
 
+    public SQLFilter where(String name, int value) {
+        result += " WHERE " + name + " = " + value;
+        return this;
+    }
+
     public SQLFilter whereLike(String name, String value) {
         result += " WHERE " + name + " LIKE '" + value + "'";
         return this;
     }
 
-    public SQLFilter where(String name, int value) {
+    public SQLFilter whereLike(String name, int value) {
         result += " WHERE " + name + " LIKE " + value;
         return this;
     }
 
-    public SQLFilter andWhereIs(String name, String value) {
+    public SQLFilter andWhere(String name, String value) {
         result += " AND " + name + " = '" + value + "'";
         return this;
     }
 
-    public SQLFilter andWhereIs(String name, int value) {
+    public SQLFilter andWhere(String name, int value) {
         result += " AND " + name + " = " + value;
         return this;
     }

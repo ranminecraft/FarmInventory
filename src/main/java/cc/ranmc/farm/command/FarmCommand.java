@@ -1,8 +1,9 @@
 package cc.ranmc.farm.command;
 
 import cc.ranmc.farm.Main;
+import cc.ranmc.farm.bean.SQLData;
 import cc.ranmc.farm.constant.SQLKey;
-import cc.ranmc.farm.sql.SQLFilter;
+import cc.ranmc.farm.bean.SQLFilter;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -46,13 +47,13 @@ public class FarmCommand implements CommandExecutor {
             }
 
             if (args[0].equalsIgnoreCase("switch")) {
-                Map<String,String> playerMap = plugin.getData().selectMap(SQLKey.PLAYER,
+                SQLData playerMap = plugin.getData().selectMap(SQLKey.PLAYER,
                         new SQLFilter().where(SQLKey.PLAYER, player.getName()));
-                boolean isOpen = playerMap.getOrDefault(SQLKey.OPEN, "1").equals("1");
+                boolean isOpen = playerMap.getBoolean(SQLKey.OPEN, true);
                 plugin.getData().update(SQLKey.PLAYER,
                         new SQLFilter()
-                                .set(SQLKey.OPEN, isOpen ? "0" : "1")
-                                .where(playerMap.get(SQLKey.ID)));
+                                .set(SQLKey.OPEN, isOpen ? false : true)
+                                .where(playerMap.getInt(SQLKey.ID)));
                 player.sendMessage(color("&b桃花源>>>&e你已" + (isOpen ? "关闭" : "打开") + "作物仓库"));
                 return true;
             }
