@@ -167,9 +167,16 @@ public class FarmListener implements Listener {
                          + item.getAmount());
             }
             SQLFilter filter = new SQLFilter();
+            boolean first = true;
             for (String key : updateMap.keySet()) {
-                filter.set(key, updateMap.get(key));
+                if (first) {
+                    filter.set(key, updateMap.get(key));
+                    first = false;
+                } else {
+                    filter.andSet(key, updateMap.get(key));
+                }
             }
+
             plugin.getData().update(SQLKey.PLAYER, filter.where(playerMap.getInt(SQLKey.ID)));
             plugin.saveConfig();
             Bukkit.getGlobalRegionScheduler().runDelayed(plugin, task -> {
