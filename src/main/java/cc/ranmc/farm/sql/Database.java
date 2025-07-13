@@ -1,7 +1,7 @@
 package cc.ranmc.farm.sql;
 
 import cc.ranmc.farm.Main;
-import cc.ranmc.farm.bean.SQLData;
+import cc.ranmc.farm.bean.SQLRow;
 import cc.ranmc.farm.bean.SQLFilter;
 
 import java.sql.Connection;
@@ -71,7 +71,7 @@ public class Database {
      * @param table 表
      * @param data 内容
      */
-    public int insert(String table, SQLData data) {
+    public int insert(String table, SQLRow data) {
         StringBuilder name = new StringBuilder();
         StringBuilder value = new StringBuilder();
         for (String key : data.keySet()) {
@@ -108,19 +108,19 @@ public class Database {
      * @param filter 数据
      * @return 数据
      */
-    public SQLData selectMap(String table, SQLFilter filter) {
+    public SQLRow selectMap(String table, SQLFilter filter) {
         return queryMap("SELECT * FROM " + table.toUpperCase() + filter.getResult());
     }
 
-    public SQLData selectMap(String table) {
+    public SQLRow selectMap(String table) {
         return queryMap("SELECT * FROM " + table.toUpperCase());
     }
 
-    public List<SQLData> selectList(String table, SQLFilter filter) {
+    public List<SQLRow> selectList(String table, SQLFilter filter) {
         return queryList("SELECT * FROM " + table.toUpperCase() + filter.getResult());
     }
 
-    public List<SQLData> selectList(String table) {
+    public List<SQLRow> selectList(String table) {
         return queryList("SELECT * FROM " + table.toUpperCase());
     }
 
@@ -139,8 +139,8 @@ public class Database {
      * @param command 命令
      * @return 数据
      */
-    protected SQLData queryMap(String command) {
-        SQLData data = new SQLData();
+    protected SQLRow queryMap(String command) {
+        SQLRow data = new SQLRow();
         ResultSet rs = null;
         try {
             rs = connection.createStatement().executeQuery(command);
@@ -164,14 +164,14 @@ public class Database {
         return data;
     }
 
-    protected List<SQLData> queryList(String command) {
-        List<SQLData> list = new ArrayList<>();
+    protected List<SQLRow> queryList(String command) {
+        List<SQLRow> list = new ArrayList<>();
         ResultSet rs = null;
         try {
             rs = connection.createStatement().executeQuery(command);
             while (rs.next()) {
                 if (!rs.isClosed()) {
-                    SQLData data = new SQLData();
+                    SQLRow data = new SQLRow();
                     ResultSetMetaData md = rs.getMetaData();
                     for (int i = 1; i <= md.getColumnCount(); i++) {
                         if (rs.getString(i) != null) {

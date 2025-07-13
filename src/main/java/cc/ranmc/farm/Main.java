@@ -8,6 +8,7 @@ import cc.ranmc.farm.listener.FarmListener;
 import cc.ranmc.farm.papi.Papi;
 import cc.ranmc.farm.papi.RanmcPapi;
 import cc.ranmc.farm.sql.Database;
+import cc.ranmc.farm.util.DataUtil;
 import cc.ranmc.papi.PapiAPI;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -23,9 +24,6 @@ public class Main extends JavaPlugin implements Listener {
 	private static Main instance;
 	@Getter
 	private boolean ranmc = false;
-	// 数据库
-	@Getter
-	private Database data;
 	
 	/**
 	 * 插件启动
@@ -38,8 +36,6 @@ public class Main extends JavaPlugin implements Listener {
 		color("§bVersion: " + getDescription().getVersion());
 		color("§chttps://www.ranmc.cc/");
 		color("§e-----------------------");
-
-		data = new Database();
 	    
 	    // 注册 Event
         Bukkit.getPluginManager().registerEvents(new FarmListener(), this);
@@ -61,7 +57,7 @@ public class Main extends JavaPlugin implements Listener {
 	 */
 	@Override
 	public void onDisable() {
-		data.close();
+		DataUtil.close();
 		print("&b[作物仓库] §a已经成功卸载");
 		super.onDisable();
 	}

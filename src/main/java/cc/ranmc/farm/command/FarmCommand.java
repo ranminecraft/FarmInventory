@@ -1,9 +1,10 @@
 package cc.ranmc.farm.command;
 
 import cc.ranmc.farm.Main;
-import cc.ranmc.farm.bean.SQLData;
+import cc.ranmc.farm.bean.SQLRow;
 import cc.ranmc.farm.constant.SQLKey;
 import cc.ranmc.farm.bean.SQLFilter;
+import cc.ranmc.farm.util.DataUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -45,14 +46,10 @@ public class FarmCommand implements CommandExecutor {
             }
 
             if (args[0].equalsIgnoreCase("switch")) {
-                SQLData playerMap = plugin.getData().selectMap(SQLKey.PLAYER,
-                        new SQLFilter().where(SQLKey.PLAYER, player.getName()));
-                boolean isOpen = playerMap.getBoolean(SQLKey.OPEN, true);
-                plugin.getData().update(SQLKey.PLAYER,
-                        new SQLFilter()
-                                .set(SQLKey.OPEN, !isOpen)
-                                .where(playerMap.getInt(SQLKey.ID)));
-                player.sendMessage(color("&b桃花源>>>&e你已" + (isOpen ? "关闭" : "打开") + "作物仓库"));
+                SQLRow playerRow = DataUtil.getPlayerData(player);
+                boolean open = playerRow.getBoolean(SQLKey.OPEN, true);
+                DataUtil.setPlayerOpen(player, !open);
+                player.sendMessage(color("&b桃花源>>>&e你已" + (open ? "关闭" : "打开") + "作物仓库"));
                 return true;
             }
 

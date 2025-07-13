@@ -1,15 +1,14 @@
 package cc.ranmc.farm.papi;
 
 import cc.ranmc.farm.Main;
-import cc.ranmc.farm.bean.SQLData;
+import cc.ranmc.farm.bean.SQLRow;
 import cc.ranmc.farm.constant.SQLKey;
 import cc.ranmc.farm.bean.SQLFilter;
+import cc.ranmc.farm.util.DataUtil;
 import org.bukkit.OfflinePlayer;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Map;
 
 public class Papi extends PlaceholderExpansion {
     
@@ -41,8 +40,7 @@ public class Papi extends PlaceholderExpansion {
     public String onRequest(OfflinePlayer player, @NotNull String identifier){
     	
         if (player == null || !player.isOnline()) return "&c目标错误";
-        SQLData playerMap = plugin.getData().selectMap(SQLKey.PLAYER,
-                new SQLFilter().where(SQLKey.PLAYER, player.getName()));
-        return String.valueOf(playerMap.getInt(identifier.toUpperCase(), 0));
+        SQLRow playerRow = DataUtil.getPlayerData(player.getName());
+        return String.valueOf(playerRow.getInt(identifier.toUpperCase(), 0));
     }
 }

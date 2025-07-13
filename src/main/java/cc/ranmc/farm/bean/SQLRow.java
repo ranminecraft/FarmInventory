@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class SQLData {
+public class SQLRow {
     private final Map<String, Object> data = new HashMap<>();
 
-    public SQLData() {}
+    public SQLRow() {}
 
-    public SQLData(Map<String, Object> data) {
+    public SQLRow(Map<String, Object> data) {
         if (data != null) {
             this.data.putAll(data);
         }
@@ -99,32 +99,32 @@ public class SQLData {
         return data.get(key);
     }
 
-    public SQLData set(String key, Object value) {
+    public SQLRow set(String key, Object value) {
         data.put(key, value);
         return this;
     }
 
-    public SQLData setString(String key, String value) {
+    public SQLRow setString(String key, String value) {
         data.put(key, value);
         return this;
     }
 
-    public SQLData setInt(String key, int value) {
+    public SQLRow setInt(String key, int value) {
         data.put(key, value);
         return this;
     }
 
-    public SQLData setDouble(String key, double value) {
+    public SQLRow setDouble(String key, double value) {
         data.put(key, value);
         return this;
     }
 
-    public SQLData setBoolean(String key, boolean value) {
+    public SQLRow setBoolean(String key, boolean value) {
         data.put(key, value);
         return this;
     }
 
-    public SQLData setLong(String key, Long value) {
+    public SQLRow setLong(String key, Long value) {
         data.put(key, value);
         return this;
     }

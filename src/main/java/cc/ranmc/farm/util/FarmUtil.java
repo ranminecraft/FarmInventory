@@ -3,7 +3,7 @@ package cc.ranmc.farm.util;
 import cc.ranmc.farm.Main;
 import cc.ranmc.farm.bean.Cop;
 import cc.ranmc.farm.constant.SQLKey;
-import cc.ranmc.farm.bean.SQLData;
+import cc.ranmc.farm.bean.SQLRow;
 import cc.ranmc.farm.bean.SQLFilter;
 import cc.ranmc.utils.BasicUtil;
 import org.bukkit.Bukkit;
@@ -39,9 +39,8 @@ public class FarmUtil {
             player.sendMessage(color("&b桃花源>>>&c没有找到这个农作物"));
             return;
         }
-        SQLData playerMap = plugin.getData().selectMap(SQLKey.PLAYER,
-                new SQLFilter().where(SQLKey.PLAYER, player.getName()));
-        int count = playerMap.getInt(crop, 0);
+        SQLRow playerRow = DataUtil.getPlayerData(player);
+        int count = playerRow.getInt(crop, 0);
         Inventory inventory = Bukkit.createInventory(null, 54,
                 color("&d&l桃花源丨作物仓库"));
 
@@ -92,9 +91,8 @@ public class FarmUtil {
         Cop cop = new Cop(copItem.getType().toString());
         if (cop.getMaterial() == Material.AIR) return;
         int page = Integer.parseInt(Objects.requireNonNull(inventory.getItem(47)).getItemMeta().getDisplayName().split(" ")[1]);
-        SQLData playerMap = plugin.getData().selectMap(SQLKey.PLAYER,
-                new SQLFilter().where(SQLKey.PLAYER, player.getName()));
-        int totalItems = playerMap.getInt(cop.getMaterial().toString().toUpperCase(), 0);
+        SQLRow playerRow = DataUtil.getPlayerData(player);
+        int totalItems = playerRow.getInt(cop.getMaterial().toString().toUpperCase(), 0);
         int itemsPerPage = 45;
         int maxStackSize = cop.getMaterial().getMaxStackSize();
         int startIndex = (page - 1) * itemsPerPage * maxStackSize;
@@ -125,11 +123,7 @@ public class FarmUtil {
         } else if (count < pageCount) {
             totalItems -= pageCount - count;
         }
-        plugin.getData().update(SQLKey.PLAYER,
-                new SQLFilter()
-                        .set(cop.getMaterial().toString().toUpperCase(), totalItems)
-                        .where(playerMap.getInt(SQLKey.ID)));
-        plugin.saveConfig();
+        DataUtil.setPlayerData(player, cop, totalItems);
         inventory.setItem(49, new ItemStack(Material.AIR));
     }
 

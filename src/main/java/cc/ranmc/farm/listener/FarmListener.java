@@ -1,9 +1,11 @@
 package cc.ranmc.farm.listener;
 
 import cc.ranmc.farm.Main;
+import cc.ranmc.farm.bean.Cop;
 import cc.ranmc.farm.constant.SQLKey;
-import cc.ranmc.farm.bean.SQLData;
+import cc.ranmc.farm.bean.SQLRow;
 import cc.ranmc.farm.bean.SQLFilter;
+import cc.ranmc.farm.util.DataUtil;
 import cc.ranmc.farm.util.FarmUtil;
 import cc.ranmc.utils.MenuUtil;
 import org.bukkit.Bukkit;
@@ -15,7 +17,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockDropItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -35,22 +36,6 @@ public class FarmListener implements Listener {
     private static final Main plugin = Main.getInstance();
     // 提示
     private final List<String> noteList = new ArrayList<>();
-
-    /**
-     * 菜单关闭
-     * @param event 事件
-     */
-    @EventHandler
-    public void onPlayerJoinEvent(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
-        SQLData playerMap = plugin.getData().selectMap(SQLKey.PLAYER,
-                new SQLFilter().where(SQLKey.PLAYER, player.getName()));
-        if (playerMap.isEmpty()) {
-            SQLData parms = new SQLData();
-            parms.set(SQLKey.PLAYER, player.getName());
-            plugin.getData().insert(SQLKey.PLAYER, parms);
-        }
-    }
 
     /**
      * 菜单关闭
@@ -155,36 +140,23 @@ public class FarmListener implements Listener {
             }
         }
         if (isCrop) {
-            SQLData playerMap = plugin.getData().selectMap(SQLKey.PLAYER,
-                    new SQLFilter().where(SQLKey.PLAYER, player.getName()));
-            if (!playerMap.getBoolean(SQLKey.OPEN, true)) return;
+            SQLRow playerRow = DataUtil.getPlayerData(player);
+            if (!playerRow.getBoolean(SQLKey.OPEN, true)) return;
             Map<String,Integer> updateMap = new HashMap<>();
             for (Item value : items) {
                 ItemStack item = value.getItemStack();
                 String type = item.getType().toString().toUpperCase();
                 updateMap.put(type,
-                        updateMap.getOrDefault(type, playerMap.getInt(type, 0))
+                        updateMap.getOrDefault(type, playerRow.getInt(type, 0))
                          + item.getAmount());
             }
-            SQLFilter filter = new SQLFilter();
-            boolean first = true;
-            for (String key : updateMap.keySet()) {
-                if (first) {
-                    filter.set(key, updateMap.get(key));
-                    first = false;
-                } else {
-                    filter.andSet(key, updateMap.get(key));
-                }
-            }
-
-            plugin.getData().update(SQLKey.PLAYER, filter.where(playerMap.getInt(SQLKey.ID)));
-            plugin.saveConfig();
+            DataUtil.setPlayerData(player, updateMap);
             Bukkit.getGlobalRegionScheduler().runDelayed(plugin, task -> {
                 noteList.remove(player.getName());
                 if (!noteList.contains(player.getName())) {
                     player.sendMessage(color("&b桃花源>>>&a作物已存放仓库,打开菜单查看吧"));
                 }
-            }, 100);
+            }, 80);
             noteList.add(player.getName());
             event.setCancelled(true);
         }
