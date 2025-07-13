@@ -29,6 +29,7 @@ public class DataUtil {
             SQLRow parms = new SQLRow();
             parms.set(SQLKey.PLAYER, playerName);
             data.insert(SQLKey.PLAYER, parms);
+            playerRow.set(SQLKey.ID, data.insert(SQLKey.PLAYER, parms));
         }
         playerData.put(playerName, playerRow);
         return playerRow;
