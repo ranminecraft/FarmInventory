@@ -151,7 +151,7 @@ public class FarmListener implements Listener {
                          + item.getAmount());
             }
             DataUtil.setPlayerData(player, updateMap);
-            Bukkit.getGlobalRegionScheduler().runDelayed(plugin, task -> {
+            Bukkit.getGlobalRegionScheduler().runDelayed(plugin, _ -> {
                 noteList.remove(player.getName());
                 if (!noteList.contains(player.getName())) {
                     player.sendMessage(color("&b桃花源>>>&a作物已存放仓库,打开菜单查看吧"));
