@@ -1,10 +1,8 @@
 package cc.ranmc.farm.listener;
 
 import cc.ranmc.farm.Main;
-import cc.ranmc.farm.bean.Cop;
 import cc.ranmc.farm.constant.SQLKey;
 import cc.ranmc.farm.bean.SQLRow;
-import cc.ranmc.farm.bean.SQLFilter;
 import cc.ranmc.farm.util.DataUtil;
 import cc.ranmc.farm.util.FarmUtil;
 import cc.ranmc.utils.MenuUtil;

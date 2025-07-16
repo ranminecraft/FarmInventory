@@ -1,6 +1,6 @@
 package cc.ranmc.farm.util;
 
-import cc.ranmc.farm.bean.Cop;
+import cc.ranmc.farm.bean.Crop;
 import cc.ranmc.farm.bean.SQLRow;
 import cc.ranmc.farm.bean.SQLFilter;
 import cc.ranmc.farm.constant.SQLKey;
@@ -39,9 +39,9 @@ public class DataUtil {
         return getPlayerData(player.getName());
     }
 
-    public static void setPlayerData(String playerName, Cop cop, int total) {
+    public static void setPlayerData(String playerName, Crop crop, int total) {
         SQLRow playerRow = DataUtil.getPlayerData(playerName);
-        String type = cop.getMaterial().toString().toUpperCase();
+        String type = crop.getMaterial().toString().toUpperCase();
         data.update(SQLKey.PLAYER,
                 new SQLFilter()
                         .set(type, total)
@@ -50,8 +50,8 @@ public class DataUtil {
         playerData.put(playerName, playerRow);
     }
 
-    public static void setPlayerData(Player player, Cop cop, int total) {
-        setPlayerData(player.getName(), cop, total);
+    public static void setPlayerData(Player player, Crop crop, int total) {
+        setPlayerData(player.getName(), crop, total);
     }
 
     public static void setPlayerData(String playerName, Map<String,Integer> copMap) {

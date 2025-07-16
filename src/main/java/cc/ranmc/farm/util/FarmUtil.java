@@ -1,10 +1,8 @@
 package cc.ranmc.farm.util;
 
 import cc.ranmc.farm.Main;
-import cc.ranmc.farm.bean.Cop;
-import cc.ranmc.farm.constant.SQLKey;
+import cc.ranmc.farm.bean.Crop;
 import cc.ranmc.farm.bean.SQLRow;
-import cc.ranmc.farm.bean.SQLFilter;
 import cc.ranmc.utils.BasicUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -27,20 +25,20 @@ public class FarmUtil {
     /**
      * 打开农作物仓库菜单
      */
-    public static void openCropGUI(Player player, String crop, int page) {
+    public static void openCropGUI(Player player, String cropStr, int page) {
         if (page > 20 && !player.hasPermission("ranmc.vip")) page = 20;
         if (page > 30 && !player.hasPermission("ranmc.svip")) page = 30;
         if (page > 50) page = 50;
         if (page < 1) page = 1;
 
-        crop = crop.toUpperCase();
-        Cop cop = new Cop(crop);
-        if (cop.getMaterial() == Material.AIR) {
+        cropStr = cropStr.toUpperCase();
+        Crop crop = new Crop(cropStr);
+        if (crop.getMaterial() == Material.AIR) {
             player.sendMessage(color("&b桃花源>>>&c没有找到这个农作物"));
             return;
         }
         SQLRow playerRow = DataUtil.getPlayerData(player);
-        int count = playerRow.getInt(crop, 0);
+        int count = playerRow.getInt(cropStr, 0);
         Inventory inventory = Bukkit.createInventory(null, 54,
                 color("&d&l桃花源丨作物仓库"));
 
@@ -49,8 +47,8 @@ public class FarmUtil {
         inventory.setItem(47, getItem(Material.PAPER, 1,
                 "&b当前页数 " + page, "&e左键切换上页", "&e右键跳转首页"));
         inventory.setItem(48, PANE);
-        inventory.setItem(49, getItem(cop.getMaterial(), 1,
-                "&b" + cop.getName(),
+        inventory.setItem(49, getItem(crop.getMaterial(), 1,
+                "&b" + crop.getName(),
                 "&b仓库库存: &e" + count, "&e点击取出该页作物"));
         inventory.setItem(50, PANE);
         inventory.setItem(51, getItem(Material.PAPER, 1,
@@ -60,12 +58,12 @@ public class FarmUtil {
                 "&c关闭菜单"));
 
         int itemsPerPage = 45;
-        int maxStackSize = cop.getMaterial().getMaxStackSize();
+        int maxStackSize = crop.getMaterial().getMaxStackSize();
         int startIndex = (page - 1) * itemsPerPage * maxStackSize;
         int endIndex = page * itemsPerPage * maxStackSize;
         if (endIndex > count) endIndex = count;
         int pageCount = endIndex - startIndex;
-        ItemStack copItem = new ItemStack(cop.getMaterial());
+        ItemStack copItem = new ItemStack(crop.getMaterial());
         while (pageCount > 0) {
             int amount = Math.min(pageCount, maxStackSize);
             pageCount -= amount;
@@ -88,13 +86,13 @@ public class FarmUtil {
     public static void save(Player player, Inventory inventory) {
         ItemStack copItem = inventory.getItem(49);
         if (copItem == null) return;
-        Cop cop = new Cop(copItem.getType().toString());
-        if (cop.getMaterial() == Material.AIR) return;
+        Crop crop = new Crop(copItem.getType().toString());
+        if (crop.getMaterial() == Material.AIR) return;
         int page = Integer.parseInt(Objects.requireNonNull(inventory.getItem(47)).getItemMeta().getDisplayName().split(" ")[1]);
         SQLRow playerRow = DataUtil.getPlayerData(player);
-        int totalItems = playerRow.getInt(cop.getMaterial().toString().toUpperCase(), 0);
+        int totalItems = playerRow.getInt(crop.getMaterial().toString().toUpperCase(), 0);
         int itemsPerPage = 45;
-        int maxStackSize = cop.getMaterial().getMaxStackSize();
+        int maxStackSize = crop.getMaterial().getMaxStackSize();
         int startIndex = (page - 1) * itemsPerPage * maxStackSize;
         int endIndex = page * itemsPerPage * maxStackSize;
         if (endIndex > totalItems) endIndex = totalItems;
@@ -104,7 +102,7 @@ public class FarmUtil {
         for (int i = 0; i < 45; i++) {
             ItemStack item = inventory.getItem(i);
             if (item != null) {
-                if (item.getType() == cop.getMaterial()) {
+                if (item.getType() == crop.getMaterial()) {
                     count += Objects.requireNonNull(inventory.getItem(i)).getAmount();
                 } else {
                     inventory.setItem(i, new ItemStack(Material.AIR));
@@ -123,7 +121,7 @@ public class FarmUtil {
         } else if (count < pageCount) {
             totalItems -= pageCount - count;
         }
-        DataUtil.setPlayerData(player, cop, totalItems);
+        DataUtil.setPlayerData(player, crop, totalItems);
         inventory.setItem(49, new ItemStack(Material.AIR));
     }
 

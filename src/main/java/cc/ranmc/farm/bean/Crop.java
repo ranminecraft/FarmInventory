@@ -4,11 +4,11 @@ import lombok.Data;
 import org.bukkit.Material;
 
 @Data
-public class Cop {
+public class Crop {
     Material material;
     String name;
 
-    public Cop(String type) {
+    public Crop(String type) {
         switch (type) {
             case "POTATO" -> {
                 material = Material.POTATO;
@@ -56,6 +56,10 @@ public class Cop {
             }
             case "CACTUS" -> {
                 material = Material.CACTUS;
+                name = "仙人掌";
+            }
+            case "MELON_SLICE" -> {
+                material = Material.MELON_SLICE;
                 name = "仙人掌";
             }
             default -> {

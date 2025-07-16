@@ -63,6 +63,7 @@ public class Database {
                 " CACTUS INTEGER," +
                 " BAMBOO INTEGER," +
                 " SUGAR_CANE INTEGER," +
+                " MELON_SLICE INTEGER," +
                 " POTATO INTEGER)");
     }
 
