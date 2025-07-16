@@ -60,7 +60,7 @@ public class Crop {
             }
             case "MELON_SLICE" -> {
                 material = Material.MELON_SLICE;
-                name = "仙人掌";
+                name = "西瓜片";
             }
             default -> {
                 material = Material.AIR;
